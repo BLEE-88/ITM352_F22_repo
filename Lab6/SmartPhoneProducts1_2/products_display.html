@@ -34,6 +34,10 @@
             Hits:<span id="hits_span">0</span>
             Spins:<span id="spins_span">0</span>
             </p>
+            <script>
+                var hits = 0;
+                var spins = 0;
+            </script>
     </header>
     <div>
         <aside>
@@ -44,7 +48,7 @@
         </aside>
 
         <main>
-            <section class="item" onmouseover="this.className='item rotate'; "onclick="this.className='item';">
+            <section class="item" onmouseover="this.className='item rotate'; spins_span.innerHTML = ++spins;" onclick="this.className='item';hits_span.innerHTML=++hits;">
                 <h2>HTC</h2>
                 <p>$40.00</p>
                 <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">
@@ -84,5 +88,4 @@
         </h1>
     </footer>
 </body>
-
 </html>
