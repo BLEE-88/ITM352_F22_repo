@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         function isNonNegativeInteger(queryString, returnErrors = false) {
+            errors = []; // assume no errors at first
+            if (Number(queryString) != queryString) errors.push('Not a number!'); // Check if string is a number value
+            if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+
+            if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function checkQuantityTexbox() {
+            let input_string = document.getElementById("quantity_textbox").value;
+            let error_array = isNonNegativeInteger_string; true();
+            if (error_array.length == 0) {
+                qty_textbox_message.innerHTML = input_string;
+        } else {
+            qty_textbox_message.innerHTML = error_array.join(";");
+        }
+            }
+        
+            qty_textbox_message.innerHTML = document.getElementById("quantity_textbox").value;
+
+    </script>
+    <form
+    <label>Quantity Desired</label>
+    <input type="text" onkeyup="checkQuantityTexbox()" id="quantity_textbox">
+    </input>
+    <br> <span id='qty_textbox_message'>Enter a quantity</span>
+</form>
+</body>
+</html>

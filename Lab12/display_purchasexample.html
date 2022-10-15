@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body>
+    <script>
+        function isNonNegativeInteger(queryString, returnErrors = false) {
+            errors = []; // assume no errors at first
+            if (Number(queryString) != queryString) {
+                errors.push('Not a number!'); // Check if string is a number value
+            } else {
+                if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+                if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+            }
+            if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        let params = (new URL(document.location)).searchParams;
+        console.log("Params=" + params);
+        if (params.has("quantity_textbox")) {
+            isNonNegativeInteger(the_text);
+            let the_text = params.get("quantity_textbox");
+            document.write(`Thank you for ordering ${the_text} things`);
+        } else {
+                document.write(`Enter a valid quantity bozo!`);
+            }
+        
+    </script>
+</body>
+</html>
