@@ -13,6 +13,7 @@ body {
   margin: 0 auto;
 }
 
+
 /* Typography */
 
 
@@ -32,6 +33,19 @@ h1 {
 }
 
 h2 {
+  font-size: 2rem;
+  color: yellow;
+  text-align: right;
+  width: 160px;
+  position: absolute;
+  right: 4%;
+  z-index: 3000;
+  text-shadow: 2px 2px 1px black;
+  line-height: 2rem;
+  padding-top: 0.3rem;
+}
+
+h3 { /*added h3 */
   font-size: 2rem;
   color: yellow;
   text-align: right;
@@ -75,6 +89,7 @@ body > div {
 footer {
   border: 5px solid black;
   border-top: 0;
+  text-align: center; /*Centered button*/
 }
 
 footer h1 {
@@ -117,7 +132,7 @@ aside div {
 
 
 section {
-  width: 45%; /* Changed width of black background */
+  width: 55%; /* Changed width of black background */
   margin: 5px;
   background-color: black;
   position: relative;
@@ -146,7 +161,7 @@ section p {
 
 
 .item img {
-    width: 220px;
+    width: 220px; /*changed width and height to 220px*/
     height: 220px; 
     
     display: block;
@@ -167,3 +182,16 @@ section p {
     transform: rotate(359deg);
   }
 }
+/* styled submit button */
+
+input[type=submit] { 
+  background: black;
+  border-style: outset;
+  border-color: black;
+  height: 50px;
+  width: 100px;
+  font: bold15px arial,sans-serif;
+  text-shadow: none;
+  color: yellow;
+  }
+

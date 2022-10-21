@@ -33,13 +33,14 @@
     <link href="products-style.css" rel="stylesheet">
 </head>
 
+
 <body>
     
     <header>
         <h1>Brendan's Used Smart Phone Store</h1>
     </header>
     <div>
-       <!-- <aside>
+       <!-- <aside>  Removed aside
             <div style="font-size:4rem;text-align:center;font-weight: bold;font-style: italic; color: blacks">
                 We sell from
                 around the globe!
@@ -47,6 +48,14 @@
         </aside>
     -->
         <main>
+            <script>
+            function checkQuantityTextbox(theTextbox) { //borrowed from example on Assignment1
+                errs = isNonNegInt(theTextbox.value, true); //valid
+                if (errs.length == 0) errs = ['You ordered:']; //when typing in the textbox, this will display 
+                if (theTextbox.value.trim() == '') errs = ['Quantity:'];
+                document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+            }
+            </script>
 
         <script>
             for (i = 0; i < products.length; i++)
@@ -54,19 +63,25 @@
             <section class="item">
                 <h2>${products[i].brand}</h2>
                 <p>$${products[i].price}</p>
-                <input type="text" onkeyup="checkQuantityTexbox()" id="quantity_textbox">
                 <img src=${products[i].image}>
+                <h3>
+                 <form id="myForm" action="./invoice3.html">
+                Quantity Desired: <input type="text" name="${products[i]}"><br>
+            </form>
+            <h3>
             </section>
             `)
         </script>
-
+        
         </main>
     </div>
     <footer>
         <h1>
             Your One Stop For Used Phones
         </h1>
+        <input type="submit" id = "Purchase" value="Purchase">
     </footer>
 </body>
+
 
 </html>
