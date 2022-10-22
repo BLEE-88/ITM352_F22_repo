@@ -2,9 +2,8 @@
 
 <script>
   let params = (new URL(document.location)).searchParams;
-        console.log("Params=" + params);
-        if (params.has("quantity_textbox")) {
-            let the_text = params.get("quantity_textbox");
+        if (params.has("quantity${i}")) {
+            let the_text = params.get("quantity${i}");
 
             // Validate the input and if good, thank the user, otherwise print error message
             if (isNonNegativeInteger(the_text)) {
