@@ -1,4 +1,4 @@
-var products_array = require(__dirname + '/products.json');
+var products_array = require(__dirname + '/product_data.json');
 
 var express = require('express');
 var app = express();
@@ -27,10 +27,6 @@ function isNonNegIntString (queryString, returnErrors=false) {
 }
 
 }
-app.all('*', function (request, response, next) {
-    console.log(request.method + ' to path ' + request.path);
-    next();
-});
 
 app.get("/products.json", function (request, response, next) {
    response.type('.js');
@@ -38,7 +34,7 @@ app.get("/products.json", function (request, response, next) {
    response.send(products_str);
 });
 
-app.post("/process_form", function (request, response) {
+app.post("/invoice.html", function (request, response) {
     // Process the form by redirecting to the receipt page
     var q = request.body['Purchase'];
     if (typeof q != 'undefined') {
