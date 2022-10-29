@@ -33,26 +33,24 @@ h1 {
 
 h2 {
   font-size: 2rem;
-  color: yellow;
+  color: black;
   text-align: right;
   width: 160px;
   position: absolute;
   right: 4%;
   z-index: 3000;
-  text-shadow: 2px 2px 1px black;
   line-height: 2rem;
   padding-top: 0.3rem;
 }
 
 h3 { /*added h3 */
   font-size: 2rem;
-  color: yellow;
+  color: black;
   text-align: right;
   width: 160px;
   position: absolute;
   right: 4%;
   z-index: 3000;
-  text-shadow: 2px 2px 1px black;
   line-height: 2rem;
   padding-top: 0.3rem;
 }
@@ -134,7 +132,7 @@ aside div {
 section {
   width: 45%; /* Changed width of black background */
   margin: 5px;
-  background-color: black;
+  background-color: rgb(237, 255, 211);
   position: relative;
   height: 215px;
 }
@@ -195,3 +193,7 @@ input[type=submit] {
   color: yellow;
   }
 
+  #qty_textbox_message {
+    color: red;
+  }
+  
