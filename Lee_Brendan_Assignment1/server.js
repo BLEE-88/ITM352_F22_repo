@@ -1,4 +1,4 @@
-var products_array = require(__dirname + '/product_data.json');
+var products_array = require(__dirname + '/products.json');
 
 var express = require('express');
 var app = express();
@@ -25,25 +25,12 @@ function isNonNegIntString (queryString, returnErrors=false) {
 } else {
     return false;
 }
-
 }
 
-app.get("/products.json", function (request, response, next) {
+app.get("/invoice", function (request, response, next) {
    response.type('.js');
    var products_str = `var products = ${JSON.stringify(products)};`;
    response.send(products_str);
-});
-
-app.post("/invoice.html", function (request, response) {
-    // Process the form by redirecting to the receipt page
-    var q = request.body['Purchase'];
-    if (typeof q != 'undefined') {
-        if (isNonNegativeInteger(q)) {  // We have a valid quantity
-            response.redirect('invoice.html?quantity=' + q);
-        } 
-    } else {
-        response.send("Enter a valid quantity!");
-    }
 });
 
 

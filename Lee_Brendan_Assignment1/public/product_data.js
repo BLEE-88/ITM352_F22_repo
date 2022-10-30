@@ -35,7 +35,20 @@ products = [
       "price": 30.00,  
       "image": "./images/Gardenia.jpg",
       "quantity_available": 9
+    },
+    {  
+      "flower":"Pikake",  
+      "price": 30.00,  
+      "image": "./images/Pikake.jpg",
+      "quantity_available": 9
+    }, 
+    {  
+      "flower":"Bird of Paradise",  
+      "price": 30.00,  
+      "image": "./images/BOP.jpg",
+      "quantity_available": 9
     } 
     ];
+    
 
 quantities = [4, -6 , 0 , 2.2 , 5];
