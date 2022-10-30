@@ -27,33 +27,32 @@ function isNonNegIntString (queryString, returnErrors=false) {
 }
 }
 
-var products = require(__dirname + '/products.json');
-products.forEach( (prod,i) => {prod.total_sold = 0}); 
-
-app.get("/product_data.", function (request, response, next) {
+app.get("/product_data.js", function (request, response, next) {
    response.type('.js');
    var products_str = `var products = ${JSON.stringify(products)};`;
    response.send(products_str);
 });
 
-app.post("/process_form", function (request, response) {
-    //response.send(request.body)
-    var q = request.body['quantity'];
-    if (typeof q != 'undefined') {
-        if (isNonNegativeInteger(q)) {  // We have a valid quantity
-            
-            let brand = products[0]['flower'];
-            let brand_price = products[0]['price'];
-            products[0].total_sold += Number(q);
+app.post('/process_form', function (request, response, next) {
+    let brand = products[0]['flower'];
+    let brand_price = products[0]['price'];
 
-            response.send(`<H1>Invoice</H1><BR>Thank you for purchasing <B>${q}</B> ${brand} at ${brand_price} each for a total of ${brand_price * q}`);
+    console.log(request.body);
+    var q = request.body['quantity_textbox'];
+    if (typeof q != 'undefined') {
+        if(isNonNegInt(q)) { 
+            products[0].total_sold += Number(q);
+            response.redirect('./invoice.html?quantity='+q);
         } else {
-            response.send(`${q} is not a valid quantity -- hit the back button`);
+            response.redirect('./invoice.html?error=Invalid%20Quantity&quantity_textbox=' + q);
         }
     } else {
-        response.send("Enter some quantities!");
+        response.send(`Hey! You need to pick some stuff!`);
     }
+
+    next();
 });
+
 // route all other GET requests to files in public 
 app.use(express.static(__dirname + '/public'));
 
