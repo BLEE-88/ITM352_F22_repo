@@ -1,8 +1,9 @@
-<script> //FROM ASSIGNMENT 1 EXAMPLE and Store1
+ <script> //FROM ASSIGNMENT 1 EXAMPLE and Store1
     function isNonNegInt(queryString, returnErrors) {
         errors = []; // assume no errors at first
-        if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
-        if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
+        if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!') // Checks if string is a number value
+            document.getElementById('frame').style.borderColor = "red";
+        if (queryString < 0) errors.push ('<font color="red">Negative Value!'); // Check if it is non-negative
         if (parseInt(queryString) != queryString) errors.push('<font color="red">Not an integer!'); // Check that it is an integer
         if (returnErrors) {
                 return errors;
@@ -15,10 +16,12 @@
     function checkQuantityTextbox(theTextbox) {
         /*Returns text of how many items are being purchased if amount in textbox has no errors */
         errs = isNonNegInt(theTextbox.value, true);
-        if (errs.length == 0) errs = ['You want:']; 
+        if (errs.length == 0) errs = ['You want:'];
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
+
+
     
 </script>
 <!DOCTYPE html>
@@ -36,7 +39,7 @@
 </head>
 
 <body>
-    <form id="quantity_form" action="/process_form" method="post">
+    <form id="myForm" action="./invoice.html" method="get">
     <header>
         <h1>Brendan's Flower Shop</h1>
     </header>
@@ -54,7 +57,7 @@
                 <BR>
                 <h3>
                 <label id="quantity${i}_label"}">Quantity Desired</label>
-                <input type="text" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                <input type="text" id= "frame" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
             <h3>
             </section>
             `)
