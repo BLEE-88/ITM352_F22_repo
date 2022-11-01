@@ -1,10 +1,8 @@
- <script> 
- //FROM ASSIGNMENT 1 EXAMPLE and Store1
-    function isNonNegInt(queryString, returnErrors) { //Tests for errors 
+<script> //FROM ASSIGNMENT 1 EXAMPLE and Store1
+    function isNonNegInt(queryString, returnErrors) {
         errors = []; // assume no errors at first
         if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
-            document.getElementById('frame').style.borderColor = "red"; // Make frame red
-        if (queryString < 0) errors.push ('<font color="red">Negative Value!'); // Check if it is non-negative
+        if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
         if (parseInt(queryString) != queryString) errors.push('<font color="red">Not an integer!'); // Check that it is an integer
         if (returnErrors) {
                 return errors;
@@ -14,15 +12,16 @@
                 return false;
             }
         }
-        
-    function checkQuantityTextbox(theTextbox) { //Applies nonnegint to submit and displays messages when conditions are met
+    function checkQuantityTextbox(theTextbox) {
         /*Returns text of how many items are being purchased if amount in textbox has no errors */
         errs = isNonNegInt(theTextbox.value, true);
-        if (errs.length == 0) errs = ['You want:'];
+        yeserrs = isNonNegInt(theTextbox.value, false);
+        if (errs.length == 0) errs = ['You want:']; 
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+        if (errs.length != 0) (theTextbox.style.borderColor = "red"); // Make frame red
     }
-
+    
 </script>
 <!DOCTYPE html>
 <html>
@@ -39,13 +38,13 @@
 </head>
 
 <body>
-    <form id="myForm" action="/MakePurchase" method="post">
+    <form id="quantity_form" action="./MakePurchase" method="post">
     <header>
         <h1>Brendan's Flower Shop</h1>
     </header>
     <div>
         <main>
-        <script> //FROM LAB 13 ORDER_PAGE.HTML Loop to display products
+        <script> //FROM LAB 13 ORDER_PAGE.HTML
 
             for (i = 0; i < products.length; i++)
             document.write (`
@@ -57,7 +56,7 @@
                 <BR>
                 <h3>
                 <label id="quantity${i}_label"}">Quantity Desired</label>
-                <input type="text" id= "frame" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                <input type="text" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
             <h3>
             </section>
             `)
@@ -68,7 +67,7 @@
         <h1>
             Make your purchase here!
         </h1>
-        <input type="submit" name = "PurchaseButton" value="Submit">
+        <input type="submit" name = "Purchase" value="Submit">
     </footer>
 </body>
 
