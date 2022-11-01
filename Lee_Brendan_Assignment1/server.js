@@ -24,10 +24,10 @@ function isNonNegativeInteger(queryString, returnErrors = false) {
     }
 }
 
-var products = require(__dirname + '/product_data.json');
+var products = require(__dirname + '/products.json');
 products.forEach((prod, i) => { prod.total_sold = 0 });
 
-app.get("/product_data.js", function (request, response, next) {
+app.get("/products.js", function (request, response, next) {
     response.type('.js');
     var products_str = `var products = ${JSON.stringify(products)};`;
     response.send(products_str);
