@@ -49,7 +49,7 @@ h3 { /*added h3 */
   right: 4%;
   z-index: 3000;
   line-height: 2rem;
-  padding-top: 0.3rem;
+  padding-top: 0.5rem;
 }
 
 /* block styling */
@@ -121,19 +121,13 @@ section p {
 input[type=submit] { 
   background: black;
   border-style: outset;
-  border-color: red;
+  border-color: black;
   height: 50px;
   width: 200px;
   font: bold15px arial,sans-serif;
   text-shadow: none;
   color: yellow;
   }
-
-  input:invalid {
-    border: 2px solid red;
-  }
-  .error {
-  border:2px solid red;
-}
+  
 
   
