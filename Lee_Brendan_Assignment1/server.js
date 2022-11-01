@@ -25,25 +25,40 @@ function isNonNegativeInteger(queryString, returnErrors = false) {
         return false;
     }
 }
-// From Assignment 1 Example 
-function process_quantity_form (POST, response) {
-    if (typeof POST['PurchaseButton'] != 'undefined') {
-       var contents = fs.readFileSync('./views/display_quantity_template.view', 'utf8');
-       receipt = '';
-        for(i in products) { 
-            let q = POST[`quantity${i}`];
-            let item = products[i]['flower'];
-            let item_price = products[i]['price'];
-            if (isNonNegIntString(q)) {
-            receipt += eval('`' + contents + '`'); // render template string
+app.post("/MakePurchase", function (request, response) {
+    // Process the form and redirect to the receipt page if everything is valid
+    let validquantity = true;
+    let ordered = "";
+ 
+    for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
+        var name = "quantity" + i;
+        var q = request.body[name];
+        if (typeof q != 'undefined') {
+            if (isNonNegativeInteger(q)) { 
+                // We have a valid quantity. Add to the ordered string.
+                products[i].total_sold += Number(q);
+                ordered += name + "=" + q + "&";
             } else {
-            receipt += `<h3><font color="red">${q} is not a valid quantity for ${flower}!</font></h3>`;
+                // We have an invalid quantity. Set the valid flag to false.
+                validquantity = false;
             }
+        } else {
+            // The textbox was not found.  Signal a problem.
+            validquantity = false;
         }
-      response.send(receipt);
-      response.end();
     }
- }
+ 
+    if (!validquantity) {
+        // If we found an error, redirect back to the order page.
+        response.redirect('products_display.html?error=Invalid%20Quantity');
+    } else {
+        // If everything is good, redirect to the receipt page.
+        response.redirect('invoice.html?' + ordered);
+    }
+ 
+ });
+ 
+
  app.get("/products.js", function (request, response, next) {
     response.type('.js');
     var products_str = `var products = ${JSON.stringify(products)};`;
