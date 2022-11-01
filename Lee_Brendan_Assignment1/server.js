@@ -26,7 +26,7 @@ function isNonNegativeInteger(queryString, returnErrors = false) {
     }
 }
 app.post("/MakePurchase", function (request, response) {
-    // Process the form and redirect to the receipt page if everything is valid
+    // Process the form and redirect to the invoice page if everything is valid
     let validquantity = true;
     let ordered = "";
  
@@ -49,11 +49,11 @@ app.post("/MakePurchase", function (request, response) {
     }
  
     if (!validquantity) {
-        // If we found an error, redirect back to the order page.
-        response.redirect('products_display.html?error=Invalid%20Quantity');
+        // If we found an error, redirect back to the products_display page.
+        response.redirect('products_display.new.html?error=Invalid%20Quantity');
     } else {
-        // If everything is good, redirect to the receipt page.
-        response.redirect('invoice.html?' + ordered);
+        // If everything is good, redirect to the invoice page.
+        response.redirect('invoice.new.html?' + ordered);
     }
  
  });
