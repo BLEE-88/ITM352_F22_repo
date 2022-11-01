@@ -38,7 +38,7 @@ app.post("./process_form", function (request, response) {
  
     for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
         var flower = "quantity" + i;
-        var q = request.body[name];
+        var q = request.body[flower];
         if (typeof q != 'undefined') {
             if (isNonNegativeInteger(q)) { 
                 // We have a valid quantity. Add to the ordered string.
