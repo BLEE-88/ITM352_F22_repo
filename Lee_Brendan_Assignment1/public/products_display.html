@@ -18,7 +18,7 @@
         if (errs.length == 0) {
         errs = ['You want:']; theTextbox.style.borderColor = "black";
         } else if (theTextbox.value.trim() == '') {
-        errs = ['Quantity'];
+        errs = ['Quantity Desired'];
         } else {
             theTextbox.style.borderColor = "red";
         }
@@ -59,7 +59,7 @@
                 <BR>
                 <h3>
                 <label id="quantity${i}_label"}">Quantity Desired</label>
-                <input type="text" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                <input type="text" name="quantity${i}" value = 0 onkeyup="checkQuantityTextbox(this);">
             <h3>
             </section>
             `)
