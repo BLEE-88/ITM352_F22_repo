@@ -63,6 +63,7 @@ app.post("/PurchaseForm", function (request, response) {
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
         response.redirect('products_display.html?error=Invalid%20Quantity');
+
     } else {
         // If everything is good, redirect to the invoice page.
         response.redirect('invoice.html?' + ordered);
