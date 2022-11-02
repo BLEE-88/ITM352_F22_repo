@@ -3,14 +3,11 @@
 <script>
   let params = (new URL(document.location)).searchParams; //From Assignment1 example
   quantities = []; //assume no errors
-  if (params.has("Purchase")) {
       for (i = 0; i < products.length; i++) {
           if (params.has(`quantity${i}`)) {
-              qty = params.get(`quantity${i}`);
-              quantities[i] = qty;
+            quantities[i] = params.get(`quantity${i}`);
           }
       }
-  }
 </script>
 
 <script>
