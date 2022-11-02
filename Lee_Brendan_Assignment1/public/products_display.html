@@ -14,12 +14,15 @@
         }
     function checkQuantityTextbox(theTextbox) {
         /*Returns text of how many items are being purchased if amount in textbox has no errors */
-        errs = isNonNegInt(theTextbox.value, true);
-        yeserrs = isNonNegInt(theTextbox.value, false);
-        if (errs.length == 0) errs = ['You want:']; 
-        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+        var errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) {
+        errs = ['You want:']; theTextbox.style.borderColor = "black";
+        } else if (theTextbox.value.trim() == '') {
+        errs = ['Quantity'];
+        } else {
+            theTextbox.style.borderColor = "red";
+        }
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
-        if (errs.length != 0) (theTextbox.style.borderColor = "red"); // Make frame red
     }
     
 </script>
@@ -65,7 +68,7 @@
     </div>
     <footer>
         <h1>
-            Make your purchase here!
+            Press submit to make your order!
         </h1>
         <input type="submit" name = "Purchase" value="Submit">
     </footer>
