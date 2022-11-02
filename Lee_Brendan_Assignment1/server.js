@@ -62,10 +62,12 @@ app.post("/process_form", function (request, response) {
     }
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
-        response.redirect('products_display.new.html?error=Invalid%20Quantity');
+        response.redirect('products_display.html?error=Invalid%20Quantity');
+        let err_msg = params.get("Please enter a valid quantity!");
+        alert(err_msg);
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('invoice.new.html?' + ordered);
+        response.redirect('invoice.html?' + ordered);
     }
  });
 
