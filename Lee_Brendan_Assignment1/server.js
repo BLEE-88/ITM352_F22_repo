@@ -1,13 +1,13 @@
+// Server from Lab 13 with some changes
 var express = require('express');
 var app = express();
 var path = require('path');
-
 
 app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true })); 
 
-function isNonNegativeInteger(queryString, returnErrors = false) {
+function isNonNegativeInteger(queryString, returnErrors = false) { //Checks for errors
     errors = []; // assume no errors at first
     if (Number(queryString) != queryString) {
         errors.push('Not a number!'); // Check if string is a number value
@@ -23,8 +23,8 @@ function isNonNegativeInteger(queryString, returnErrors = false) {
         return false;
     }
 }
-
-var products = require(__dirname + '/products.json');
+//Gets products.json
+var products = require(__dirname + '/products.json'); 
 products.forEach((prod, i) => { prod.total_sold = 0 });
 
 app.get("/products.js", function (request, response, next) {
@@ -37,7 +37,7 @@ app.all('*', function (request, response, next) {
     console.log(request.method + ' to path ' + request.path);
     next();
 });
-
+// Posts PurchaseForm and redirects to invoice or gives error
 app.post("/PurchaseForm", function (request, response) {
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;

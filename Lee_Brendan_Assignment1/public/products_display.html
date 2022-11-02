@@ -1,5 +1,6 @@
-<script> //FROM ASSIGNMENT 1 EXAMPLE and Store1
-    function isNonNegInt(queryString, returnErrors) {
+<script> 
+
+    function isNonNegInt(queryString, returnErrors) { //Checks for errors and provides red error message
         errors = []; // assume no errors at first
         if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
         if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
@@ -12,7 +13,8 @@
                 return false;
             }
         }
-    function checkQuantityTextbox(theTextbox) {
+
+    function checkQuantityTextbox(theTextbox) { //Changes error message to You want or Quantity desired and changes frame of textbox
         /*Returns text of how many items are being purchased if amount in textbox has no errors */
         var errs = isNonNegInt(theTextbox.value, true);
         if (errs.length == 0) {
@@ -47,9 +49,8 @@
     </header>
     <div>
         <main>
-        <script> //FROM LAB 13 ORDER_PAGE.HTML
-
-            for (i = 0; i < products.length; i++)
+        <script> //FROM Store1 WOD
+            for (i = 0; i < products.length; i++) //Loop creating products and labeling them for css, also puts in input type "text"
             document.write (`
             <section class="item">
                 <h2>${products[i].flower}</h2>
@@ -57,8 +58,8 @@
                 <img src=${products[i].image}>
                 <BR>
                 <BR>
-                <h3>
-                <label id="quantity${i}_label"}">Quantity Desired</label>
+                <h3> 
+                <label id="quantity${i}_label"}">Quantity Desired</label> 
                 <input type="text" name="quantity${i}" value = 0 onkeyup="checkQuantityTextbox(this);">
             <h3>
             </section>
@@ -66,7 +67,7 @@
         </script>
         </main>
     </div>
-    <footer>
+    <footer> <!--Submit button-->
         <h1>
             Press submit to make your order!
         </h1>
