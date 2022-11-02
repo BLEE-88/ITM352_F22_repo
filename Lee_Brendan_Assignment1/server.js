@@ -12,7 +12,7 @@ function isNonNegativeInteger(queryString, returnErrors = false) { //Checks for 
     if (Number(queryString) != queryString) {
         errors.push('Not a number!'); // Check if string is a number value
     } else {
-        if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if (queryString < 0) errors.push('Please make an order!'); // Check if it is non-negative
         if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
     }
     if (returnErrors) {

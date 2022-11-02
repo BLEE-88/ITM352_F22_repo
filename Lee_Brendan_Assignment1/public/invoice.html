@@ -1,4 +1,4 @@
-<script src="./product_data.js"></script>
+<script src="./products.js"></script>
 
 <script> //Pulls quantity into invoice
   let params = (new URL(document.location)).searchParams; 
@@ -31,8 +31,8 @@ document.write(`
         <tr>
           <td width="43%">${products[i].flower}</td>
           <td align="center" width="11%">${quantity}</td>
-          <td width="13%">\$${products[i].price}</td>
-          <td width="54%">\$${extended_price}</td>
+          <td width="13%">\$${products[i].price.toFixed(2)}</td>
+          <td width="54%">\$${extended_price.toFixed(2)}</td>
         </tr>
         `);
       }
@@ -86,13 +86,13 @@ var tax = tax_rate*subtotal;
 
 // Compute Shipping
 
-if (subtotal <=100) {
-  shipping = 25;
+if (subtotal <50) {
+  shipping = 20;
 }
-else if (subtotal <=299.99) {
-  shipping = 5;
+else if (subtotal <=100-199.99) {
+  shipping = 15;
 }
-else (shipping = 0)
+else (shipping = 10)
 
 // Compute total
 
@@ -103,7 +103,7 @@ var total = subtotal + tax + shipping
         </tr>
         <tr>
           <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
-          <td width="54%">$<script>document.write(subtotal);</script></td>
+          <td width="54%">$<script>document.write(subtotal.toFixed(2));</script></td>
         </tr>
         <tr>
           <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;"></span><strong>Tax @ 4%</strong></td>
@@ -126,9 +126,9 @@ var total = subtotal + tax + shipping
     <h1><b>All proceeds go towards funding our nature conservation program!</b></h1>
     <h4>
     <div><b>OUR SHIPPING POLICY IS:</b></div>
-      <br><b>Subtotals less than $100 will be $25 shipping.</b></br>
-      <br><b>A subtotal $100 - $299.99 will be $5 shipping.</b></br>
-      <br><b>Subtotals over $300 will get free shipping!</b></br>
+      <br><b>Subtotals less than $50 will have $20 shipping.</b></br>
+      <br><b>If subtotal is $100 - $199.99 it will be $15 shipping.</b></br>
+      <br><b>Subtotals over $200 will get $10 shipping!</b></br>
     </h4>
 </body>
 </html>
