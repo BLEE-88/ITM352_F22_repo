@@ -38,7 +38,7 @@ app.all('*', function (request, response, next) {
     next();
 });
 
-app.post("/process_form", function (request, response) {
+app.post("/PurchaseForm", function (request, response) {
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
@@ -63,8 +63,6 @@ app.post("/process_form", function (request, response) {
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
         response.redirect('products_display.html?error=Invalid%20Quantity');
-        let err_msg = params.get("Please enter a valid quantity!");
-        alert(err_msg);
     } else {
         // If everything is good, redirect to the invoice page.
         response.redirect('invoice.html?' + ordered);
