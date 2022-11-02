@@ -84,13 +84,13 @@ var tax = tax_rate*subtotal;
 
 // Compute Shipping
 
-if (subtotal <=50) {
-  shipping = 2;
+if (subtotal <=100) {
+  shipping = 25;
 }
-else if (subtotal <=100) {
+else if (subtotal <=299.99) {
   shipping = 5;
 }
-else (shipping = 0.05 * subtotal)
+else (shipping = 0)
 
 // Compute total
 
@@ -117,8 +117,15 @@ var total = subtotal + tax + shipping
         </tr>
       </tbody>
     </table>
-    <div><b>OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $2 shipping</div>
-      <div>A subtotal $50 - $99.99 will be $5 shipping</div>
-      <br>Subtotals over $100 will be charged 5% of the subtotal amount</b></br>
+    <style>
+    h4 {font-size: 1rem;}
+  
+    </style>
+    <h4>
+    <div><b>OUR SHIPPING POLICY IS:</b></div>
+      <br><b>Subtotals less than $100 will be $25 shipping.</b></br>
+      <br><b>A subtotal $100 - $299.99 will be $5 shipping.</b></br>
+      <br><b>Subtotals over $300 will get free shipping!</b></br>
+    </h4>
 </body>
 </html>
