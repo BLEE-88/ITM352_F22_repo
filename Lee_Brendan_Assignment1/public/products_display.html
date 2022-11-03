@@ -1,5 +1,7 @@
 <script> 
 
+//  IR2 REQUIREMENT
+
     function isNonNegInt(queryString, returnErrors) { //Checks for errors and provides red error message
         errors = []; // assume no errors at first
         if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
@@ -18,11 +20,11 @@
         /*Returns text of how many items are being purchased if amount in textbox has no errors */
         var errs = isNonNegInt(theTextbox.value, true);
         if (errs.length == 0) {
-        errs = ['You want:']; theTextbox.style.borderColor = "black";
+        errs = ['You want:']; theTextbox.style.borderColor = "black"; // If no errors border is black
         } else if (theTextbox.value.trim() == '') {
         errs = ['Quantity Desired'];
         } else {
-            theTextbox.style.borderColor = "red";
+            theTextbox.style.borderColor = "red"; // If there are errors border is red
         }
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
