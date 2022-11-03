@@ -13,8 +13,9 @@ html {
     border: 2px solid;
   }
 
-  h1 { 
+  footer h1 { 
     text-align: center;
+    color: white;
   }
   h4 { 
     text-align: center;
