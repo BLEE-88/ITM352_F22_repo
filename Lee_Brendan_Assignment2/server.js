@@ -43,7 +43,6 @@ app.post("/PurchaseForm", function (request, response) {
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
-    let POST = request.body;
 
     for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
         var flower = "quantity" + i;
@@ -62,14 +61,13 @@ app.post("/PurchaseForm", function (request, response) {
             valid = false;
         }
     }
-    var stringified = querystring.stringify(POST);
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
         response.redirect('products_display.html?error=Invalid%20Quantity');
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('./login.html' + stringified);
+        response.redirect('login.html?' + ordered);
     }
  });
 
