@@ -3,13 +3,6 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
-var fname = "user_data.json";
-
-if (fs.existsSync(fname)) {
-    var data = fs.readFileSync(fname, 'utf-8');
-    var users = JSON.parse(data);
-    console.log(users);
-}
 
 app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
@@ -99,32 +92,11 @@ app.post("/PurchaseForm", function (request, response) {
     
  if (users[user_name] != undefined) {
         if (users[user_name].password == user_pass) {
-            response.send("Good login for user " + user_name);
+            response.redirect("invoice.html?" + user_name);
         } else {
-            response.redirect("/login.html?error='Bad password'");
+            response.redirect("/login.html?error='User does not exist!'");
         }
-    } else {
-        response.redirect("/login.html?error='No such user'");
     }
-    app.post("/login_form", function (request, response) {
-        // Process login form POST and redirect to logged in page if ok, back to login page if not
-        let POST = request.body;
-        let user_name = POST["username"];
-        let user_pass = POST["password"];
-    
-        console.log("User name=" + user_name + " password=" + user_pass);
-        
-        if (users[user_name] != undefined) {
-            if (users[user_name].password == user_pass) {
-                response.send("Good login for user " + user_name);
-            } else {
-                response.redirect("/login.html?error='Bad password'");
-            }
-        } else {
-            response.redirect("/login.html?error='No such user'");
-        }
-    
-    });
 
 app.post("/register_form", function (request, response) {
         // process a simple register form
