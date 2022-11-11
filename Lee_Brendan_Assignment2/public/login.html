@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./login_style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+    <div class="login-box">
+    <form id="login" action="login_form" method="post">
+        <h1>Login!</h1>
+        <label>Username</label>
+        <input type="text" name="username" size="30" placeholder="enter username"></br>
+        <br>
+        <label>Password</label>
+        <input type="password" name="password" size="30" placeholder="enter password"></br>
+        <br>
+        <input type="submit" value="Submit" id="submit">
+        
+        <h2>New User? Sign Up Here!</h2>
+            <form id="register_form" action="register_form" method="POST">
+            <label>Username</label>
+            <input type="text" name="username" size="30" placeholder="enter username"></br>
+            <br>
+            <label>Email</label>
+            <input type="email" name="newemail" size="30" placeholder="enter email"><br/>
+            <br>
+            <label>Full Name:</label>
+            <input type="text" name="fullname" size="30" placeholder="enter full name"><br />
+            <br>
+            <label>Password:</label>
+            <input type="password" name="password" size="30" placeholder="enter password"><br />
+            <br>
+            <label>Confirm Password:</label>
+            <input type="password" name="repeat_password" size="30" placeholder="re-enter password"></br>
+            <br>
+            <input type="submit" value="Register" name="register_user" id="register">
+            </form>
+        </div>
+        </main>
+</body>
+</html>
