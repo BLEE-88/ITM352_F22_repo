@@ -39,37 +39,6 @@ app.all('*', function (request, response, next) {
     next();
 });
 // Posts PurchaseForm and redirects to invoice or gives error
-app.post("/PurchaseForm", function (request, response) {
-    // Process the form by redirecting to the receipt page if everything is valid.
-    let valid = true;
-    let ordered = "";
-
-    for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
-        var flower = "quantity" + i;
-        var q = request.body[flower];
-        if (typeof q != 'undefined') {
-            if (isNonNegativeInteger(q)) { 
-                // We have a valid quantity. Add to the ordered string.
-                products[i].total_sold += Number(q);
-                ordered += flower + "=" + q + "&";
-            } else {
-                // We have an invalid quantity. Set the valid flag to false.
-                valid = false;
-            }
-        } else {
-            // The textbox was not found.  Signal a problem.
-            valid = false;
-        }
-    }
-    if (!valid) {
-        // If we found an error, redirect back to the products_display page.
-        response.redirect('products_display.html?error=Invalid%20Quantity');
-
-    } else {
-        // If everything is good, redirect to the invoice page.
-        response.redirect('./login.html?' + ordered);
-    }
- });
 
  var fs = require('fs');
  var fname = "user_data.json";
@@ -82,13 +51,14 @@ app.post("/PurchaseForm", function (request, response) {
      console.log("Sorry file " + fname + " does not exist.");
  }
 
- app.post("/process_login", function (request, response) {
+
+ app.post("/login_form", function (request, response) {
     console.log(request);
     query_string_object = request.query; //save quantities from query string
     query_string_object["username"] = request.body.username; // put username in query_string_object
 
-    if (typeof users_data[request.body.username] != 'undefined') { //if username exists in userdata.json
-        if (request.body.password != users_data[request.body.username].password) { //if the password doesn't match the stored password
+    if (typeof users[request.body.username] != 'undefined') { //if username exists in userdata.json
+        if (request.body.password != users[request.body.username].password) { //if the password doesn't match the stored password
         query_string_object['password_error']= "Password is incorrect!";
         } else { // if the password does match 
             console.log(request);
@@ -106,12 +76,10 @@ app.post("/PurchaseForm", function (request, response) {
 // From Assignment 2 Examples
 app.post("/register_form", function (request, response) {
         // process a simple register form
-        let POST = request.body;
         errors = [];
         username = request.body.username.toLowerCase();
         email = request.body.email.toLowerCase();
         password = request.body.newpassword.length
-        var validemail =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     
         if(typeof users_reg_data[username] != 'undefined') {
             errors.push = `Hey! ${username} is already registered!`;
