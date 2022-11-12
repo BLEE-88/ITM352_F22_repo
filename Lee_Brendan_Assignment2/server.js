@@ -134,7 +134,7 @@ app.post("/register_form", function (request, response) {
             notgood = true;
         }
         if (password < 10) {
-            response.send(`password too short!`);
+            response.redirect('register.html?error=Password%20Too%20Short!');
             notgood = true;
         }
         if (password > 16) {
