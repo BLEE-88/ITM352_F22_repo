@@ -130,7 +130,7 @@ app.post("/register_form", function (request, response) {
         if (password > 16) {
             errors.push = ("password too long");
         }
-        if (password != request.body.repeat_password) {
+        if (request.body.password != request.body.repeat_password) {
             errors.push = ("Passwords do not match");
         }
 
