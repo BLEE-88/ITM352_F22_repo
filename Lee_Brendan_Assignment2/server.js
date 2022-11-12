@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
+const querystring = require("querystring")
 
 app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
@@ -38,7 +39,39 @@ app.all('*', function (request, response, next) {
     console.log(request.method + ' to path ' + request.path);
     next();
 });
+
 // Posts PurchaseForm and redirects to invoice or gives error
+app.post("/PurchaseForm", function (request, response) {
+    // Process the form by redirecting to the receipt page if everything is valid.
+    let valid = true;
+    let ordered = "";
+
+    for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
+        var flower = "quantity" + i;
+        var q = request.body[flower];
+        if (typeof q != 'undefined') {
+            if (isNonNegativeInteger(q)) { 
+                // We have a valid quantity. Add to the ordered string.
+                products[i].total_sold += Number(q);
+                ordered += flower + "=" + q + "&";
+            } else {
+                // We have an invalid quantity. Set the valid flag to false.
+                valid = false;
+            }
+        } else {
+            // The textbox was not found.  Signal a problem.
+            valid = false;
+        }
+    }
+    if (!valid) {
+        // If we found an error, redirect back to the products_display page.
+        response.redirect('invoice.html?error=Invalid%20Quantity');
+
+    } else {
+        // If everything is good, redirect to the invoice page.
+        response.redirect('login.html?' + ordered);
+    }
+ });
 
  var fs = require('fs');
  var fname = "user_data.json";
@@ -70,7 +103,7 @@ app.all('*', function (request, response, next) {
         query_string_object['username_error']= "User does not exist! Please register.";
     }
     // If we get here there was an error and need to go back to login with the quantity data and errors
-    response.redirect("./user_login.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
+    response.redirect("./login.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
 });
 
 // From Assignment 2 Examples
