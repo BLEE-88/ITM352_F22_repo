@@ -43,6 +43,7 @@ app.post("/PurchaseForm", function (request, response) {
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
+    let POST = request.body;
 
     for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
         var flower = "quantity" + i;
@@ -61,13 +62,14 @@ app.post("/PurchaseForm", function (request, response) {
             valid = false;
         }
     }
+    var stringified = querystring.stringify(POST);
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
         response.redirect('products_display.html?error=Invalid%20Quantity');
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('login.html?' + ordered);
+        response.redirect('./login.html?' + ordered);
     }
  });
 
@@ -98,28 +100,64 @@ app.post("/PurchaseForm", function (request, response) {
         }
     }
 
+// From Assignment 2 Examples
 app.post("/register_form", function (request, response) {
         // process a simple register form
         let POST = request.body;
-        console.log(POST);
-        let user_name = POST["username"];
-        let user_pass = POST["password"];
-        let user_email = POST["email"];
-        let user_pass2 = POST["repeat_password"];
+        errors = [];
+        username = request.body.username.toLowerCase();
+        email = request.body.email.toLowerCase();
+        password = request.body.newpassword.length
+        var validemail =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     
-        if (users[user_name] == undefined) {
-            users[user_name] = {};
-            users[user_name].name = user_name;
-            users[user_name].password = user_pass;
-            users[user_name].email = user_email;
-    
-            let data = JSON.stringify(users);
-            fs.writeFileSync(fname, data, 'utf-8');
-    
-            response.send("Got a registration");
+        if(typeof users_reg_data[username] != 'undefined') {
+            errors.push = `Hey! ${username} is already registered!`;
+        }
+        if(request.body.username == '') {
+            errors.push =("You need to select a username!");
+        }
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) { //tests if email matches validation
         } else {
-            response.send("User " + user_name + " already exists!");
+            errors.push("Invalid email format!");
+        }
+        if (/^[a-z ,.'-]+$/i.test(request.body.fullname)) {
+        } else {
+            errors.push("Please use a real name!");
+        }
+        if (password < 10) {
+            errors.push = ("password too short");
+        }
+        if (password > 16) {
+            errors.push = ("password too long");
+        }
+        if (password != request.body.repeat_password) {
+            errors.push = ("Passwords do not match");
+        }
+
+        if (errors.length == 0) {
+            let POST = request.body;
+        
+            let user_name = POST["username"];
+            let user_pass = POST["newpassword"];
+            let user_email = POST["email"];
+            let user_pass2 = POST["repeat_password"];
+        
+            if (users[user_name] == undefined) {
+                users[user_name] = {};
+                users[user_name].name = user_name;
+                users[user_name].password = user_pass;
+                users[user_name].email = user_email;
+        
+                let data = JSON.stringify(users);
+                fs.writeFileSync(fname, data, 'utf-8');
+        
+                response.send("Got a registration");
+            } else {
+                response.redirect('login.html?error = User Already Exists!');
+
+            }
         }
      });
 });
+
 app.listen(8080, () => console.log(`listening on port 8080`));
