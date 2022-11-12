@@ -109,36 +109,43 @@ app.post("/PurchaseForm", function (request, response) {
 // From Assignment 2 Examples
 app.post("/register_form", function (request, response) {
         // process a simple register form
-        errors = [];
+        notgood = false;
         username = request.body.username.toLowerCase();
         email = request.body.email.toLowerCase();
         password = request.body.newpassword.length
     
-        if(typeof users_reg_data[username] != 'undefined') {
-            errors.push = `Hey! ${username} is already registered!`;
+        if(typeof users[username] != 'undefined') {
+            response.send(`Hey! ${username} is already registered!`);
+            notgood = true;
         }
         if(request.body.username == '') {
-            errors.push =("You need to select a username!");
+            response.send(`You need to select a username!`);
+            notgood = true;
         }
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) { //tests if email matches validation
         } else {
-            errors.push("Invalid email format!");
+            response.send(`Invalid email format!`);
+            notgood = true;
         }
         if (/^[a-z ,.'-]+$/i.test(request.body.fullname)) {
         } else {
-            errors.push("Please use a real name!");
+            response.send(`Please use a real name!`);
+            notgood = true;
         }
         if (password < 10) {
-            errors.push = ("password too short");
+            response.send(`password too short!`);
+            notgood = true;
         }
         if (password > 16) {
-            errors.push = ("password too long");
+            response.send(`password too long!`);
+            notgood = true;
         }
-        if (password != request.body.repeat_password) {
-            errors.push = ("Passwords do not match");
+        if (request.body.newpassword != request.body.repeat_password) {
+            response.send(`Passwords do not match!`);
+            notgood = true;
         }
 
-        if (errors.length == 0) {
+        if (!notgood) { //no errors
             let POST = request.body;
         
             let user_name = POST["username"];
@@ -154,7 +161,7 @@ app.post("/register_form", function (request, response) {
         
                 let data = JSON.stringify(users);
                 fs.writeFileSync(fname, data, 'utf-8');
-                response.redirect('invoice.html?' + ordered);
+                response.redirect('invoice.html?');
             } else {
                 response.redirect('/login.html?error = User Already Exists!');
 
