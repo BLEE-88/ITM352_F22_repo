@@ -8,7 +8,16 @@
             quantities[i] = params.get(`quantity${i}`);
           }
       }
+
+if (params.has("user_name")) {
+  var username = params.get("user_name");
+}
 </script>
+
+<h2>Thank you ordering
+<script>document.write(`${username}`)
+</script>!
+</h2>
 
 <script>
   // Generates table data and sets rules to follow when inputting quantities and calculating subtotal and extended price

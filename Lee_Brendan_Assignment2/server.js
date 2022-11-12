@@ -69,11 +69,13 @@ app.post("/PurchaseForm", function (request, response) {
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('login.html?' + ordered);
+        response.redirect('login.html?');
     }
  });
 
+
  var fs = require('fs');
+const { query } = require('express');
  var fname = "user_data.json";
  
  if (fs.existsSync(fname)) {
@@ -86,24 +88,23 @@ app.post("/PurchaseForm", function (request, response) {
 
 
  app.post("/login_form", function (request, response) {
-    console.log(request);
-    query_string_object = request.query; //save quantities from query string
-    query_string_object["username"] = request.body.username; // put username in query_string_object
+    // Process login form POST and redirect to logged in page if ok, back to login page if not
+    let POST = request.body;
+    let user_name = POST["username"];
+    let user_pass = POST["password"];
 
-    if (typeof users[request.body.username] != 'undefined') { //if username exists in userdata.json
-        if (request.body.password != users[request.body.username].password) { //if the password doesn't match the stored password
-        query_string_object['password_error']= "Password is incorrect!";
-        } else { // if the password does match 
-            console.log(request);
-            response.redirect("./invoice.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
-            return; // we're done here
+    console.log("User name=" + user_name + " password=" + user_pass);
+    
+    if (users[user_name] != undefined) {
+        if (users[user_name].password == user_pass) {
+            response.redirect("invoice.html?" + querystring.stringify(request.body));
+        } else {
+            response.redirect("/login.html?");
         }
+    } else {
+        response.redirect("/login.html");
 
-    } else { // if the username does not exist in userdata.json
-        query_string_object['username_error']= "User does not exist! Please register.";
     }
-    // If we get here there was an error and need to go back to login with the quantity data and errors
-    response.redirect("./login.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
 });
 
 // From Assignment 2 Examples
@@ -119,7 +120,7 @@ app.post("/register_form", function (request, response) {
             notgood = true;
         }
         if(request.body.username == '') {
-            response.send(`You need to select a username!`);
+            response.send(`You need to enter a username!`);
             notgood = true;
         }
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) { //tests if email matches validation
@@ -137,7 +138,7 @@ app.post("/register_form", function (request, response) {
             notgood = true;
         }
         if (password > 16) {
-            response.send(`password too long!`);
+            response.send(`Password too long!`);
             notgood = true;
         }
         if (request.body.newpassword != request.body.repeat_password) {
