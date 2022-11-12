@@ -43,7 +43,6 @@ app.post("/PurchaseForm", function (request, response) {
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
-    let POST = request.body;
 
     for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
         var flower = "quantity" + i;
@@ -62,7 +61,6 @@ app.post("/PurchaseForm", function (request, response) {
             valid = false;
         }
     }
-    var stringified = querystring.stringify(POST);
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
         response.redirect('products_display.html?error=Invalid%20Quantity');
@@ -84,21 +82,26 @@ app.post("/PurchaseForm", function (request, response) {
      console.log("Sorry file " + fname + " does not exist.");
  }
 
- app.post("/login", function (request, response) {
-    // Process login form POST and redirect to logged in page if ok, back to login page if not
-    let POST = request.body;
-    let user_name = POST["username"];
-    let user_pass = POST["password"];
+ app.post("/process_login", function (request, response) {
+    console.log(request);
+    query_string_object = request.query; //save quantities from query string
+    query_string_object["username"] = request.body.username; // put username in query_string_object
 
-    console.log("User name=" + user_name + " password=" + user_pass);
-    
- if (users[user_name] != undefined) {
-        if (users[user_name].password == user_pass) {
-            response.redirect("invoice.html?" + user_name);
-        } else {
-            response.redirect("/login.html?error='User does not exist!'");
+    if (typeof users_data[request.body.username] != 'undefined') { //if username exists in userdata.json
+        if (request.body.password != users_data[request.body.username].password) { //if the password doesn't match the stored password
+        query_string_object['password_error']= "Password is incorrect!";
+        } else { // if the password does match 
+            console.log(request);
+            response.redirect("./invoice.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
+            return; // we're done here
         }
+
+    } else { // if the username does not exist in userdata.json
+        query_string_object['username_error']= "User does not exist! Please register.";
     }
+    // If we get here there was an error and need to go back to login with the quantity data and errors
+    response.redirect("./user_login.html?" + querystring.stringify(query_string_object)); // redirect to invoice with the two strings
+});
 
 // From Assignment 2 Examples
 app.post("/register_form", function (request, response) {
@@ -130,7 +133,7 @@ app.post("/register_form", function (request, response) {
         if (password > 16) {
             errors.push = ("password too long");
         }
-        if (request.body.password != request.body.repeat_password) {
+        if (password != request.body.repeat_password) {
             errors.push = ("Passwords do not match");
         }
 
@@ -150,14 +153,12 @@ app.post("/register_form", function (request, response) {
         
                 let data = JSON.stringify(users);
                 fs.writeFileSync(fname, data, 'utf-8');
-        
-                response.send("Got a registration");
+                response.redirect('invoice.html?' + ordered);
             } else {
-                response.redirect('login.html?error = User Already Exists!');
+                response.redirect('/login.html?error = User Already Exists!');
 
             }
         }
      });
-});
 
 app.listen(8080, () => console.log(`listening on port 8080`));
