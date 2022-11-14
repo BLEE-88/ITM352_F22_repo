@@ -3,7 +3,6 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
-const querystring = require("querystring")
 
 app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
@@ -42,10 +41,10 @@ app.all('*', function (request, response, next) {
 
 // Posts PurchaseForm and redirects to invoice or gives error
 app.post("/PurchaseForm", function (request, response) {
+    let params = new URLSearchParams(request.query);
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
-
     for (i = 0; i < products.length; i++) {  // Iterate over all text boxes in the form.
         var flower = "quantity" + i;
         var q = request.body[flower];
@@ -69,7 +68,7 @@ app.post("/PurchaseForm", function (request, response) {
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('login.html?');
+        response.redirect('login.html?' + params.toString(ordered));
     }
  });
 
@@ -86,25 +85,20 @@ const { query } = require('express');
      console.log("Sorry file " + fname + " does not exist.");
  }
 
-
  app.post("/login_form", function (request, response) {
+    let params = new URLSearchParams(request.query);
     // Process login form POST and redirect to logged in page if ok, back to login page if not
-    let POST = request.body;
-    let user_name = POST["username"];
-    let user_pass = POST["password"];
-
-    console.log("User name=" + user_name + " password=" + user_pass);
-    
-    if (users[user_name] != undefined) {
-        if (users[user_name].password == user_pass) {
-            response.redirect("invoice.html?" + querystring.stringify(request.body));
+    the_username = request.body['username'].toLowerCase();
+    the_password = request.body['password'];
+    if (typeof users[the_username] != 'undefined') {
+        if (users[the_username].password == the_password) {
+            response.redirect('./invoice.html?'+ params.toString());
         } else {
-            response.redirect("/login.html?");
+            response.send(`Wrong password!`);
         }
-    } else {
-        response.redirect("/login.html");
-
+        return;
     }
+    response.send(`${the_username} does not exist`);
 });
 
 // From Assignment 2 Examples
@@ -134,7 +128,7 @@ app.post("/register_form", function (request, response) {
             notgood = true;
         }
         if (password < 10) {
-            response.redirect('register.html?error=Password%20Too%20Short!');
+            response.send(`Password too short!`);
             notgood = true;
         }
         if (password > 16) {

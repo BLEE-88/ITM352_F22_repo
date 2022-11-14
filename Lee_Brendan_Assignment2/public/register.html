@@ -29,4 +29,48 @@
             <input type="submit" value="Register" name="register_user" id="register">
             </div>
 </body>
+<script> //Pulls quantity into invoice
+    let params = (new URL(document.location)).searchParams; 
+    quantities = []; //assume no errors
+        for (i = 0; i < products.length; i++) {
+            if (params.has(`quantity${i}`)) {
+              quantities[i] = params.get(`quantity${i}`);
+            }
+        }
+        if (params.has("error")) {
+              let err_msg = "Password%20Too%20Short!";
+              alert(err_msg);
+              window.location = '/products_display.html';
+          }
+function generate_item_rows(product_quantities_array) {
+  for (i=0; i<product_quantities_array.length; i++) {
+    quantity = product_quantities_array[i];
+    errors = isNonNegativeInteger(quantity, true);
+    if(quantity == 0) {
+      continue;
+    }
+    if(errors.length == 0) {
+      extended_price = quantity * products[i].price;
+      subtotal += extended_price;
+    } else {
+      extended_price = 0;
+      quantity = `<div style="color:red;">${quantity}<br>${errors.join("<br>")}</span>`;
+    }
+  }};
+  function isNonNegativeInteger(queryString, returnErrors = false) {
+            errors = []; // assume no errors at first
+            if (Number(queryString) != queryString) errors.push('Not a number!'); // Check if string is a number value
+            if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+
+            if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+  </script>
 </html>
