@@ -40,7 +40,7 @@ app.all('*', function (request, response, next) {
 });
 
 // Posts PurchaseForm and redirects to invoice or gives error
-app.post("/PurchaseForm", function (request, response) {
+app.post("/Purchase", function (request, response) {
     let params = new URLSearchParams(request.query);
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
@@ -68,13 +68,13 @@ app.post("/PurchaseForm", function (request, response) {
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('login.html?' + params.toString(ordered));
+        response.redirect('login.html?' + ordered + params.toString());
     }
  });
 
-
  var fs = require('fs');
 const { query } = require('express');
+const { URLSearchParams } = require('url');
  var fname = "user_data.json";
  
  if (fs.existsSync(fname)) {
@@ -84,15 +84,20 @@ const { query } = require('express');
  } else {
      console.log("Sorry file " + fname + " does not exist.");
  }
+ app.get("/products.js", function (request, response, next) {
+    response.type('.js');
+    var products_str = `var products = ${JSON.stringify(products)};`;
+    response.send(products_str);
+});
 
- app.post("/login_form", function (request, response) {
+ app.post("/login", function (request, response) {
     let params = new URLSearchParams(request.query);
     // Process login form POST and redirect to logged in page if ok, back to login page if not
     the_username = request.body['username'].toLowerCase();
     the_password = request.body['password'];
     if (typeof users[the_username] != 'undefined') {
         if (users[the_username].password == the_password) {
-            response.redirect('./invoice.html?'+ params.toString());
+            response.redirect('./invoice.html?' + params.toString());
         } else {
             response.send(`Wrong password!`);
         }
@@ -102,7 +107,7 @@ const { query } = require('express');
 });
 
 // From Assignment 2 Examples
-app.post("/register_form", function (request, response) {
+app.post("/register", function (request, response) {
         // process a simple register form
         notgood = false;
         username = request.body.username.toLowerCase();
