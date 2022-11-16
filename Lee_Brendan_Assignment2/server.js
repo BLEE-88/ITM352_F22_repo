@@ -42,6 +42,7 @@ app.all('*', function (request, response, next) {
 // Posts PurchaseForm and redirects to invoice or gives error
 app.post("/Purchase", function (request, response) {
     let params = new URLSearchParams(request.query);
+
     // Process the form by redirecting to the receipt page if everything is valid.
     let valid = true;
     let ordered = "";
@@ -127,12 +128,13 @@ body {
 <input type="submit" value="Submit" id="submit">
 <br>
 <br>
-<a href="/register?" + ${params.toString()}>Don't have an account? Register here!</a>
+<a href="/register?${params.toString()}">Don't have an account? Register here!</a>
 </form>
 </div>
 </body>
     `;
 response.send(str);
+console.log("He: " + params);
 });
 
  app.post("/login", function (request, response) {
@@ -279,6 +281,7 @@ app.post("/register", function (request, response) {
      }
     }
 });
+
 
 
 app.listen(8080, () => console.log(`listening on port 8080`));
