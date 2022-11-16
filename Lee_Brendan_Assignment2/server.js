@@ -64,30 +64,75 @@ app.post("/Purchase", function (request, response) {
     }
     if (!valid) {
         // If we found an error, redirect back to the products_display page.
-        response.redirect('invoice.html?error=Invalid%20Quantity');
+        response.redirect('products_display.html?error=Invalid%20Quantity');
 
     } else {
         // If everything is good, redirect to the invoice page.
-        response.redirect('login.html?' + ordered + params.toString());
+        response.redirect('/login?' + ordered + params.toString());
     }
  });
 
  var fs = require('fs');
 const { query } = require('express');
 const { URLSearchParams } = require('url');
- var fname = "user_data.json";
+var fname = "user_data.json";
  
  if (fs.existsSync(fname)) {
      var data = fs.readFileSync(fname, 'utf-8');
      var users = JSON.parse(data);
      console.log(users);
- } else {
-     console.log("Sorry file " + fname + " does not exist.");
- }
+ };
+
  app.get("/products.js", function (request, response, next) {
     response.type('.js');
     var products_str = `var products = ${JSON.stringify(products)};`;
     response.send(products_str);
+});
+
+app.get("/login", function (request, response) {
+// Give a simple login form
+let params = new URLSearchParams(request.query);
+str = `
+<style>
+body {
+	background: url(images/forestbckgrnd.jpg);
+	background-size: cover;
+	font-family: 'Times New Roman'; font-size: 18px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+	align-items: center;
+}
+.login-box{
+    width: 500px;
+    height: 250px;
+    background: ivory;
+    text-align: center;
+    padding-left: 20px;
+    border-style: solid;
+    border-width: 1px;
+    }
+</style>
+<body>
+<form action="?${params.toString()}" method="POST">
+
+<div class="login-box">
+<h1>Login!</h1>
+<label>Username</label>
+<input type="text" name="username" size="30" placeholder="enter username"></br>
+<br>
+<label>Password</label>
+<input type="password" name="password" size="30" placeholder="enter password"></br>
+<br>
+<input type="submit" value="Submit" id="submit">
+<br>
+<br>
+<a href="/register?" + ${params.toString()}>Don't have an account? Register here!</a>
+</form>
+</div>
+</body>
+    `;
+response.send(str);
 });
 
  app.post("/login", function (request, response) {
@@ -103,12 +148,69 @@ const { URLSearchParams } = require('url');
         }
         return;
     }
-    response.send(`${the_username} does not exist`);
+    response.send(`${the_username} does not exist!`);
 });
 
 // From Assignment 2 Examples
+
+app.get("/register", function (request, response) {
+    console.log(request.params.toString());
+// Give a simple login form
+let params = new URLSearchParams(request.query);
+str = `
+<style>
+body {
+background: url(images/forestbckgrnd.jpg);
+background-size: cover;
+font-family: 'Times New Roman'; font-size: 18px;
+display: flex;
+flex-flow: row wrap;
+justify-content: space-evenly;
+align-items: center;
+}
+
+.login-box{
+width: 500px;
+height: 350px;
+background: ivory;
+text-align: center;
+padding-left: 20px;
+border-style: solid;
+border-width: 1px;
+}
+</style>
+
+<body>
+<form action="?${params.toString()}" method="POST">
+<div class="login-box">
+    <h2>Sign Up Here!</h2>
+            <form id="register_form" action="register" method="POST">
+            <label>Username</label>
+            <input type="text" name="username" size="30" placeholder="enter username"></br>
+            <br>
+            <label>Email</label>
+            <input type="email" name="email" size="30" placeholder="enter email"><br/>
+            <br>
+            <label>Full Name:</label>
+            <input type="text" name="fullname" size="30" placeholder="enter full name"><br />
+            <br>
+            <label>Password:</label>
+            <input type="password" name="newpassword" size="30" placeholder="enter password"><br />
+            <br>
+            <label>Confirm Password:</label>
+            <input type="password" name="repeat_password" size="30" placeholder="re-enter password"></br>
+            <br>
+            <input type="submit" value="Register" name="register_user" id="register">
+            </div>
+</form>
+</body>
+    `;
+response.send(str);
+});
+
 app.post("/register", function (request, response) {
         // process a simple register form
+        let params = new URLSearchParams(request.query);
         notgood = false;
         username = request.body.username.toLowerCase();
         email = request.body.email.toLowerCase();
@@ -161,12 +263,22 @@ app.post("/register", function (request, response) {
         
                 let data = JSON.stringify(users);
                 fs.writeFileSync(fname, data, 'utf-8');
-                response.redirect('invoice.html?');
+                response.redirect("invoice.html?" + params.toString());
             } else {
                 response.redirect('/login.html?error = User Already Exists!');
 
             }
         }
      });
+     app.post("/invoice", function (request, response) {
+        the_username = request.body['username'].toLowerCase();
+        the_password = request.body['password'];
+        if (typeof users[the_username] != 'undefined') {
+            if (users[the_username].password == the_password) {
+                loggedin.push({})
+     }
+    }
+});
+
 
 app.listen(8080, () => console.log(`listening on port 8080`));
