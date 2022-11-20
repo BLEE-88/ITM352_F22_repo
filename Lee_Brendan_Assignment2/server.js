@@ -184,7 +184,7 @@ border-style: solid;
 border-width: 1px;
 }
 </style>
-
+// Register form with error messages
 <body>
 <form action="?${params.toString()}" method="POST">
 <div class="login-box">
@@ -224,7 +224,7 @@ app.post("/register", function (request, response) {
         // process a simple register form
         let params = new URLSearchParams(request.query);
         good = false;
-        username = request.body.username.toLowerCase();
+        username = request.body.username.toLowerCase(); //Tests text case
         email = request.body.email.toLowerCase();
         password = request.body.newpassword.length
     
