@@ -1,6 +1,6 @@
 <script src="./products.js"></script>
 
-<script> //Pulls quantity into invoice
+<script> //Puts quantities into loop for invoice, From Store1 WOD 
   let params = (new URL(document.location)).searchParams; 
   quantities = []; //assume no errors
       for (i = 0; i < products.length; i++) {
@@ -8,7 +8,7 @@
             quantities[i] = params.get(`quantity${i}`);
           }
       }
-      if (params.has("user_name")) {
+      if (params.has("user_name")) { //Attempt at IR5 Welcome
             let err_msg = "Welcome";
             alert(err_msg);
       }
@@ -16,12 +16,12 @@
 
 
 <script>
-  // Generates table data and sets rules to follow when inputting quantities and calculating subtotal and extended price
+  // Generates table data and sets rules to follow when inputting quantities and calculating subtotal and extended price, From STORE1 WOD, received help from Professor Kazman during office hours
 function generate_item_rows(product_quantities_array) {
   for (i=0; i<product_quantities_array.length; i++) {
     quantity = product_quantities_array[i];
     errors = isNonNegativeInteger(quantity, true);
-    if(quantity == 0) {
+    if(quantity == 0) { //Continues adding rows even if quantity is 0
       continue;
     }
     if(errors.length == 0) {
@@ -42,7 +42,7 @@ document.write(`
         `);
       }
     }
-        function isNonNegativeInteger(queryString, returnErrors = false) {
+        function isNonNegativeInteger(queryString, returnErrors = false) { //Function that checks for errors from Professor Kazman's Labs- Used in multiple labs
             errors = []; // assume no errors at first
             if (Number(queryString) != queryString) errors.push('Not a number!'); // Check if string is a number value
             if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
@@ -56,7 +56,7 @@ document.write(`
                 return false;
             }
         }
-
+// Generates table and calculates costs, all from Store1 WOD
 // Compute subtotal
 
 var subtotal= 0;
