@@ -1,23 +1,24 @@
-// Server from Lab 13 with some changes
+// Server from Professor Kazman's Lab 13 with some changes
 var express = require('express');
 var app = express();
 var path = require('path');
 var fs = require('fs');
 var errors = {};
 
-// Global array for IR5
+// // Global array for ATTEMPT at IR5
 let activeusers = {};
 
 app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true })); 
 
-   function isNonNegInt(queryString, returnErrors) { //Checks for errors and provides red error message
-        errors = []; // assume no errors at first
-        if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
-        if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
-        if (parseInt(queryString) != queryString) errors.push('<font color="red">Not an integer!'); // Check that it is an integer
-        if (returnErrors) {
+function isNonNegativeInteger(queryString, returnErrors = false) { //Function that checks for errors from Professor Kazman's Labs- Used in multiple labs
+            errors = []; // assume no errors at first
+            if (Number(queryString) != queryString) errors.push('Not a number!'); // Check if string is a number value
+            if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+
+            if (returnErrors) {
                 return errors;
             } else if (errors.length == 0) {
                 return true;
@@ -41,7 +42,7 @@ app.all('*', function (request, response, next) {
     next();
 });
 
-// Posts PurchaseForm and redirects to invoice or gives error
+// Posts PurchaseForm and redirects to invoice or gives error, from Professor Kazman's Lab 13 info_server_new.js with some changes made by me
 app.post("/Purchase", function (request, response) {
     let params = new URLSearchParams(request.query);
 
@@ -52,7 +53,7 @@ app.post("/Purchase", function (request, response) {
         var flower = "quantity" + i;
         var q = request.body[flower];
         if (typeof q != 'undefined') {
-            if (isNonNegInt(q)) { 
+            if (isNonNegativeInteger(q)) { 
                 // We have a valid quantity. Add to the ordered string.
                 products[i].total_sold += Number(q);
                 ordered += flower + "=" + q + "&";
@@ -74,8 +75,8 @@ app.post("/Purchase", function (request, response) {
         response.redirect('/login?' + ordered);
     }
  });
-
- var fs = require('fs');
+// From assignment 2 Examples page on website
+var fs = require('fs');
 const { query } = require('express');
 const { URLSearchParams } = require('url');
 var fname = "user_data.json";
@@ -85,7 +86,7 @@ var fname = "user_data.json";
      var users = JSON.parse(data);
      console.log(users);
  };
-// Created login form on server with signup button
+// Created login form on server with signup button with base from Assignment 2 examples, made styles myself
 
  app.get("/products.js", function (request, response, next) {
     response.type('.js');
@@ -138,7 +139,7 @@ body {
 response.send(str);
 console.log("He: " + params);
 });
-//Login validation
+//Login validation from Assignment 2 example page on website with some changes made by me
  app.post("/login", function (request, response) {
     let params = new URLSearchParams(request.query);
     // Process login form POST and redirect to logged in page if ok, back to login page if not
@@ -156,7 +157,7 @@ console.log("He: " + params);
 });
 
 
-// Created register form on server
+// Created register form on server with base from Assignment 2 examples with changes made by me, styles made by me
 app.get("/register", function (request, response) {
     console.log(request.params.toString());
 // Give a simple login form
@@ -218,7 +219,7 @@ border-width: 1px;
     `;
 response.send(str);
 });
-// Registration validation
+// Registration validation made by me(Brendan Lee)
 app.post("/register", function (request, response) {
         // process a simple register form
         let params = new URLSearchParams(request.query);
@@ -258,7 +259,7 @@ app.post("/register", function (request, response) {
             good = true;
         }
 
-        if (!good) { //Testing if there are no errors if there are no errors then add it to user_data
+        if (!good) { //Testing if there are no errors if there are no errors then add it to user_data, from Assignment 2 examples with some changes made by me
             let POST = request.body;
         
             let user_name = POST["username"];
