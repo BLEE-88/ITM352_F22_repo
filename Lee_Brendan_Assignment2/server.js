@@ -26,8 +26,8 @@ function isNonNegativeInteger(queryString, returnErrors = false) { //Function th
                 return false;
             }
         }
-
-//Gets products.json
+//From Professor Kazman's lab 14, includes app get and app all
+//Gets products.json 
 var products = require(__dirname + '/products.json'); 
 products.forEach((prod, i) => { prod.total_sold = 0 });
 
