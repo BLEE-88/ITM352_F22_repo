@@ -1,0 +1,38 @@
+[
+{  
+  "flower":"Plumeria",  
+  "price": 2.00,  
+  "image": "./images/Plumeria.jpg",
+  "quantity_available": 8
+},
+{  
+  "flower":"Hibiscus",  
+  "price": 1.50,  
+  "image": "./images/Hibiscus.jpg",
+  "quantity_available": 16
+},
+{  
+  "flower":"Purple Orchid",  
+  "price": 3.00,  
+  "image": "./images/Orchid.jpg",
+  "quantity_available": 15
+},
+{  
+  "flower":"Heliconia",  
+  "price": 8.00,  
+  "image": "./images/Heliconia.jpg",
+  "quantity_available": 14
+}, 
+{  
+  "flower":"Anthurium",  
+  "price": 2.00,  
+  "image": "./images/Anthurium.jpg",
+  "quantity_available": 11
+}, 
+{  
+  "flower":"Gardenia",  
+  "price": 1.00,  
+  "image": "./images/Gardenia.jpg",
+  "quantity_available": 9
+} 
+]
