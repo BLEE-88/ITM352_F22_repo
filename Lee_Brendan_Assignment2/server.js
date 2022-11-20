@@ -12,22 +12,20 @@ app.use(express.static(__dirname + '/public'));
 app.use('/css',express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true })); 
 
-function isNonNegativeInteger(queryString, returnErrors = false) { //Checks for errors
-    errors = []; // assume no errors at first
-    if (Number(queryString) != queryString) {
-        errors.push('Not a number!'); // Check if string is a number value
-    } else {
-        if (queryString < 0) errors.push('Please make an order!'); // Check if it is non-negative
-        if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
-    }
-    if (returnErrors) {
-        return errors;
-    } else if (errors.length == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
+   function isNonNegInt(queryString, returnErrors) { //Checks for errors and provides red error message
+        errors = []; // assume no errors at first
+        if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
+        if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
+        if (parseInt(queryString) != queryString) errors.push('<font color="red">Not an integer!'); // Check that it is an integer
+        if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 //Gets products.json
 var products = require(__dirname + '/products.json'); 
 products.forEach((prod, i) => { prod.total_sold = 0 });
@@ -54,7 +52,7 @@ app.post("/Purchase", function (request, response) {
         var flower = "quantity" + i;
         var q = request.body[flower];
         if (typeof q != 'undefined') {
-            if (isNonNegativeInteger(q)) { 
+            if (isNonNegInt(q)) { 
                 // We have a valid quantity. Add to the ordered string.
                 products[i].total_sold += Number(q);
                 ordered += flower + "=" + q + "&";
@@ -94,9 +92,8 @@ var fname = "user_data.json";
     var products_str = `var products = ${JSON.stringify(products)};`;
     response.send(products_str);
 });
-
+//Created Login form on the server
 app.get("/login", function (request, response) {
-// Give a simple login form
 let params = new URLSearchParams(request.query);
 str = `
 <style>
@@ -261,7 +258,7 @@ app.post("/register", function (request, response) {
             good = true;
         }
 
-        if (!good) { //If there are no errors add it to user_data
+        if (!good) { //Testing if there are no errors if there are no errors then add it to user_data
             let POST = request.body;
         
             let user_name = POST["username"];
@@ -287,7 +284,7 @@ app.post("/register", function (request, response) {
             response.redirect("/register?" + "&" + params.toString());
         }
      });
-//Attempt at IR5 making invoice a form and then adding loop to get username into array
+//Attempt at IR5 making invoice a form and then adding a loop to get username into array
 app.post("/invoice", function (request, response) {
         the_username = request.body['username'].toLowerCase();
         the_password = request.body['password'];
