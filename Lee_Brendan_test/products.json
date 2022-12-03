@@ -1,0 +1,116 @@
+{
+  "Flowers": [
+    {  
+      "name":"Plumeria",  
+      "price": 2.00,  
+      "image": "./images/Plumeria.jpg",
+      "quantity_available": 20
+    },
+    {  
+      "name":"Hibiscus",  
+      "price": 1.50,  
+      "image": "./images/Hibiscus.jpg",
+      "quantity_available": 16
+    },
+    {  
+      "name":"Purple Orchid",  
+      "price": 3.00,  
+      "image": "./images/Orchid.jpg",
+      "quantity_available": 15
+    },
+    {  
+      "name":"Heliconia",  
+      "price": 8.00,  
+      "image": "./images/Heliconia.jpg",
+      "quantity_available": 14
+    }, 
+    {  
+      "name":"Anthurium",  
+      "price": 2.00,  
+      "image": "./images/Anthurium.jpg",
+      "quantity_available": 11
+    }, 
+    {  
+      "name":"Gardenia",  
+      "price": 1.00,  
+      "image": "./images/Gardenia.jpg",
+      "quantity_available": 9
+    } 
+  ],
+  "Fruits": [
+    {  
+      "name":"Dragonfruit",  
+      "price": 2.00,  
+      "image": "./images/Dragonfruit.jpeg",
+      "quantity_available": 8
+    },
+    {  
+      "name":"Mango",  
+      "price": 1.50,  
+      "image": "./images/Mango.jpeg",
+      "quantity_available": 16
+    },
+    {  
+      "name":"Pineapple",  
+      "price": 3.00,  
+      "image": "./images/pineapple.png",
+      "quantity_available": 15
+    },
+    {  
+      "name":"Lychee",  
+      "price": 8.00,  
+      "image": "./images/Lychee.jpeg",
+      "quantity_available": 14
+    }, 
+    {  
+      "name":"Banana",  
+      "price": 2.00,  
+      "image": "./images/Banana.jpeg",
+      "quantity_available": 11
+    }, 
+    {  
+      "name":"Papaya",  
+      "price": 1.00,  
+      "image": "./images/Papaya.jpeg",
+      "quantity_available": 9
+    } 
+  ],
+  "Souvenirs": [
+    {  
+      "name":"Hat",  
+      "price": 2.00,  
+      "image": "./images/Hat.jpeg",
+      "quantity_available": 8
+    },
+    {  
+      "name":"Mortar and Pestle",  
+      "price": 1.50,  
+      "image": "./images/mortar.jpeg",
+      "quantity_available": 16
+    },
+    {  
+      "name":"Lei",  
+      "price": 3.00,  
+      "image": "./images/Lei.jpeg",
+      "quantity_available": 15
+    },
+    {  
+      "name":"Aloha Shirt",  
+      "price": 8.00,  
+      "image": "./images/Shirt.jpeg",
+      "quantity_available": 14
+    }, 
+    {  
+      "name":"Bracelet",  
+      "price": 2.00,  
+      "image": "./images/Bracelet.jpeg",
+      "quantity_available": 11
+    }, 
+    {  
+      "name":"Socks",  
+      "price": 1.00,  
+      "image": "./images/socks.jpeg",
+      "quantity_available": 9
+    } 
+  ]
+}
