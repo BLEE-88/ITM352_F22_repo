@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 
 //Gets products.json 
 var products_data = require(__dirname + '/products.json');
+console.log(products_data);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(session({secret: "MySecretKey", resave: true, saveUninitialized: true}));
