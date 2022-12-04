@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<script src="./functions.js"></script>
+<script>
+    //  IR2 REQUIREMENT From Assignment 1 Workshop Unzipped file "Design examples for Assignment1", this includes checkquantitytextbox
+    function isNonNegInt(queryString, returnErrors) { //Checks for errors and provides red error message
+        errors = []; // assume no errors at first
+        if (Number(queryString) != queryString) errors.push('<font color="red">Not a number!'); // Checks if string is a number value
+        if (queryString < 0) errors.push('<font color="red">Negative Value!'); // Check if it is non-negative
+        if (parseInt(queryString) != queryString) errors.push('<font color="red">Not an integer!'); // Check that it is an integer
+        if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    function checkQuantityTextbox(theTextbox) { //Changes error message to You want or Quantity desired and changes frame of textbox
+        /*Returns text of how many items are being purchased if amount in textbox has no errors */
+        var errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) {
+        errs = ['You want:']; theTextbox.style.borderColor = "black"; // If no errors border is black
+        } else if (theTextbox.value.trim() == '') {
+        errs = ['Quantity Desired'];
+        } else {
+            theTextbox.style.borderColor = "red"; // If there are errors border is red
+        }
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+    }
+    
+    function getCookie(cname) {
+		let name = cname + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for (let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+    // get the query string
+    var products;
+    var total = 0;
+    loadJSON('get_products_data', function (response) {
+      // Parsing JSON string into object
+      products = JSON.parse(response);
+    });
+    loadJSON('get_cart', function (response) {
+      // Parsing JSON string into object
+      shopping_cart = JSON.parse(response);
+      for (pk in shopping_cart) {
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+    let params = (new URL(document.location)).searchParams;
+        if (params.has('products_key')) {
+            var products_key = params.get('products_key');
+        } else {
+            document.write('no products key in query string');
+            document.stop;
+        }
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manoa Garden</title>
+    <link href="https://fonts.googleapis.com/css?family=Cherry+Swash|Raleway" rel="stylesheet">
+    <link href="products-style.css" rel="stylesheet">
+    <link href="nav.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="display_products.html">Products</a>
+        <a href="./login.html">Login</a>
+        <a href="./register.html">Register</a>
+        <a href="./cart.html">View Cart (<span id="cart_total">0</span>)</a>
+      </div>
+      <div class="Choice">
+      <b><p>Please choose from our products!</p></b>
+      </div>
+
+      <h5 class="links"><script>
+        // This makes a navigation bar to other product pages
+        for (products_key in products_data) {
+            if (products_key == this_product_key) continue;
+            document.write(`<a href='./display_products.html?products_key=${products_key}'>${products_key}<a>&nbsp&nbsp&nbsp;`);
+        }
+    </script></h5> 
+
+
+   <FORM action="/add_to_cart" method="GET">
+            <INPUT TYPE="HIDDEN" NAME="products_key" VALUE="${this_products_key}">
+    <script>
+    cart_total.innerHTML = total;
+    </script>
+    <div>
+      <main>
+        <script>
+        var products = products_data[this_product_key];
+          for (i = 0; i < products.length; i++) {
+            document.write (`
+            <section class="item">
+                <h2>${products[i]['name']}</h2>
+                <br>
+                <br>
+                <h3>Price: $${products[i]['price']}</h3>
+                <br>
+                <br>
+                <h4>Available: ${products[i]['qtyavl']}</h4>
+                <br>
+                <img src=${products[i]['image']}>
+                <BR>
+                <BR>
+                <br>
+                <br>
+                <h3> 
+                <label id="quantities${i}_label">Enter Quantity</label> 
+                <input type="text" name="quantities${i}" value = 0 onkeyup="checkQuantityTextbox(this);">
+            <h3>
+            </section>
+            `);
+        }
+        </script>
+      </main>
+    </div>
+    <div class="makeorder">
+    <INPUT TYPE="SUBMIT"  id="Submit" value="Add to Cart"> </p> 
+    </div>
+  </form>
+</body>
+</html>
