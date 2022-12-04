@@ -38,7 +38,7 @@ app.all('*', function (request, response, next) {
     next();
 });
 
-app.post("/get_products_data", function (request, response) {
+app.get("/get_products_data", function (request, response) {
     response.json(products_data);
 });
 
