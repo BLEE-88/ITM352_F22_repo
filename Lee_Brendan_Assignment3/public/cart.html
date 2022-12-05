@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<script src="./functions.js"></script>
+<!--Checklist: 
+  Edit Quantities
+  Validation
+  Generate rows
+  Calculate prices X
+  Check for user_name cookie and Welcome
+-->
+<script>
+  var products;
+  var total = 0;
+  loadJSON('get_products_data', function (response) {
+      // Parsing JSON string into object
+      products_data = JSON.parse(response);
+    });
+    loadJSON('get_cart', function (response) {
+      // Parsing JSON string into object
+      shopping_cart = JSON.parse(response);
+      for (pk in shopping_cart) {
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+    let params = (new URL(document.location)).searchParams;
+        if (params.has('products_key')) {
+            var this_product_key = params.get('products_key');
+        } else {
+          document.write('no products key in query string');
+          document.stop;
+        }
+</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link href="cart-style.css" rel="stylesheet">
+  <link href="nav.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="display_products.html">Products</a>
+        <a href="./login.html">Login</a>
+        <a href="./register.html">Register</a>
+        <a href="./cart.html">View Cart (<span id="cart_total">0</span>)</a>
+      </div>
+
+      <table class = "center" border="2">
+        <tbody>
+          <tr>
+            <!--Put Welcome here-->
+            <th style="text-align: center;" width="16%">Product</th>
+            <th style="text-align: center;" width="13%">Price</th>
+            <th style="text-align: center;" width="25%">Quantity</th>
+            <th style="text-align: center;" width="59%">Extended Price</th>
+          </tr>
+          <script>
+  
+            subtotal = 0;
+            generate_cart_rows();
+
+            //Compute Tax
+            // 5% tax rate because that is the average throughout the united states 
+            var tax_rate = 0.04;
+            var tax = tax_rate * subtotal;
+            
+            // Compute Shipping
+
+if (subtotal <50) {
+  shipping = 15;
+}
+else if (subtotal <=100-199.99) {
+  shipping = 10;
+}
+else (shipping = 3)
+
+
+            //compute total
+            var total = subtotal + tax + shipping;
+          </script>
+  
+  
+          <td colspan="4" width="100%">&nbsp;</td>
+  
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><strong>Sub-total</strong></td>
+            <td width="54%"> $<script> document.write(subtotal.toFixed(2));</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;"></span><strong>Tax @ 4%</strong></td>
+            <td width="54%">$<script>document.write(tax.toFixed(2));</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><strong>Shipping</strong></td>
+            <td width="54%">$<script>document.write(shipping.toFixed(2));</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+            <td width="54%">$<script>document.write(total.toFixed(2));</script></td>
+          </tr>
+        </tbody>
+      </table>
+      <footer>
+        <h4>
+        <div><b>OUR SHIPPING POLICY IS:</b></div>
+          <br><b>Subtotals less than $50 will have $15 shipping.</b></br>
+          <br><b>If subtotal is $100 - $199.99 it will be $10 shipping.</b></br>
+          <br><b>Subtotals over $200 will get free shipping!</b></br>
+        </h4>
+      </footer>
+</body>
+</html>
