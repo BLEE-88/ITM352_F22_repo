@@ -34,6 +34,7 @@ app.get("/add_to_cart", function (request, response) {
 
     if (isNonNegativeInteger(quantities) == true) { //If passes isnonnegativeinteger create session
         request.session.cart[products_key] = quantities;
+        response.redirect('./cart.html');
     } else {
         error_message =`<script> alert('Your quantity is invalid!'); window.history.go(-1);</script>`;
         response.send(error_message); //send error message if quantity is invalid, go back 1 page
