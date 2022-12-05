@@ -1,0 +1,116 @@
+{
+    "Flowers": [
+      {  
+        "name":"Plumeria",  
+        "price": 2.00,  
+        "image": "./images/Plumeria.jpg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Hibiscus",  
+        "price": 1.99,  
+        "image": "./images/Hibiscus.jpg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Purple Orchid",  
+        "price": 3.00,  
+        "image": "./images/Orchid.jpg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Heliconia",  
+        "price": 8.00,  
+        "image": "./images/Heliconia.jpg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Anthurium",  
+        "price": 2.00,  
+        "image": "./images/Anthurium.jpg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Gardenia",  
+        "price": 1.00,  
+        "image": "./images/Gardenia.jpg",
+        "qtyavl": 20
+      }
+    ],
+    "Fruits": [
+      {  
+        "name":"Dragonfruit",  
+        "price": 10.00,  
+        "image": "./images/Dragonfruit.jpeg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Mango",  
+        "price": 1.99,  
+        "image": "./images/Mango.jpeg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Pineapple",  
+        "price": 6.00,  
+        "image": "./images/pineapple.png",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Lychee",  
+        "price": 4.00,  
+        "image": "./images/Lychee.jpeg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Bananas",  
+        "price": 2.00,  
+        "image": "./images/Banana.jpeg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Papaya",  
+        "price": 3.00,  
+        "image": "./images/Papaya.jpeg",
+        "qtyavl": 20
+      } 
+    ],
+    "Souvenirs": [
+      {  
+        "name":"Woven Hat",  
+        "price": 5.00,  
+        "image": "./images/Hat.jpeg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Mortar and Pestle",  
+        "price": 8.99,  
+        "image": "./images/mortar.jpeg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Lei",  
+        "price": 7.00,  
+        "image": "./images/Lei.jpeg",
+        "qtyavl": 20
+      },
+      {  
+        "name":"Aloha Shirt",  
+        "price": 10.00,  
+        "image": "./images/Shirt.jpeg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Kukui Bracelet",  
+        "price": 2.00,  
+        "image": "./images/Bracelet.jpeg",
+        "qtyavl": 20
+      }, 
+      {  
+        "name":"Manoa Socks",  
+        "price": 5.00,  
+        "image": "./images/socks.jpeg",
+        "qtyavl": 20
+      } 
+    ]
+  }
