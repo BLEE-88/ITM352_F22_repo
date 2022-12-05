@@ -8,7 +8,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 
 //Gets products.json 
-var products_data = require(__dirname + '/products.json');
+var products_data = require('./products.json');
 console.log(products_data);
 
 app.use(express.urlencoded({ extended: true }));
@@ -30,15 +30,10 @@ app.all('*', function (request, response, next) {
 
 app.get("/add_to_cart", function (request, response) {
     var products_key = request.query['products_key']; // get the product key sent from the form post
-    var quantities = request.query['quantities'].map(Number); // Get quantities from the form post and convert strings from form post to numbers
+    var quantities = request.query['quantity'].map(Number); // Get quantities from the form post and convert strings from form post to numbers
     request.session.cart[products_key] = quantities; // store the quantities array in the session cart object with the same products_key. 
     response.redirect('./cart.html');
 });
-
-app.get("/get_cart", function (request, response) {
-    response.json(request.session.cart);
-});
-
 
 // From assignment 2 Examples page on website
 var fname = "user_data.json";
@@ -150,5 +145,21 @@ app.post("/register", function (request, response) {
             response.redirect("./register.html" + "&" + params.toString());
         }
      });
-
+     
+     function isNonNegativeInteger(queryString, returnErrors = false) { //Checks for errors
+        errors = []; // assume no errors at first
+        if (Number(queryString) != queryString) {
+            errors.push('Not a number!'); // Check if string is a number value
+        } else {
+            if (queryString < 0) errors.push('Please make an order!'); // Check if it is non-negative
+            if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+        }
+        if (returnErrors) {
+            return errors;
+        } else if (errors.length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 app.listen(8080, () => console.log(`listening on port 8080`));
