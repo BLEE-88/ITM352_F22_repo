@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="index.css" rel="stylesheet">
+<link href="nav.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="display_products.html">Products</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        <a href="./cart.html">View Cart (<span id="cart_total">0</span>)</a>
+      </div>
+<h1>Use the navigation bar to traverse our website!</h1>
+<h2>Some products we sell:</h2>
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 6</div>
+  <img src="./images/Orchid.jpg" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 6</div>
+  <img src="./images/Shirt.jpeg" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 6</div>
+  <img src="./images/Dragonfruit.jpeg" style="width:100%">
+</div>
+
+<div class="mySlides fade">
+    <div class="numbertext">4 / 6</div>
+    <img src="./images/Lychee.jpeg" style="width:100%">
+  </div>
+  
+  <div class="mySlides fade">
+      <div class="numbertext">5 / 6</div>
+      <img src="./images/Lei.jpeg" style="width:100%">
+    </div>
+  
+    <div class="mySlides fade">
+      <div class="numbertext">6 / 6</div>
+      <img src="./images/Plumeria.jpg" style="width:100%">
+    </div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() { //Makes slideshow, but also makes dots that coincide with them. Made dots hidden because I don't need them
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 3500); // Change image every 3.5 seconds
+}
+</script>
+
+</body>
+</html> 
