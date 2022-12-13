@@ -200,7 +200,7 @@ loadJSON('get_products_data', function (response) {
     
       </footer>
           `);
-            if (typeof request.cookies["username"] != "undefined") { //Change the button type depending on if user is logged in or not
+            if (typeof request.cookies["useremail"] != "undefined") { //Change the button type depending on if user is logged in or not
               response.write(`<button type="submit" name="checkout">checkout</button>`)
             } else {
               response.write("Please sign in to complete your purchase! ")
