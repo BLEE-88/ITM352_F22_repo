@@ -1,0 +1,158 @@
+<script src="./products.js"></script>
+
+<script> //Puts quantities into loop for invoice, From Store1 WOD 
+  let params = (new URL(document.location)).searchParams; 
+  quantities = []; //assume no errors
+      for (i = 0; i < products.length; i++) {
+          if (params.has(`quantity${i}`)) {
+            quantities[i] = params.get(`quantity${i}`);
+          }
+      }
+      if (params.has("user_name")) { //Attempt at IR5 Welcome
+            let err_msg = "Welcome";
+            alert(err_msg);
+      }
+//W3SCHOOLS function to getcookie
+  function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+</script>
+
+
+<script>
+  // Generates table data and sets rules to follow when inputting quantities and calculating subtotal and extended price, From STORE1 WOD, received help from Professor Kazman during office hours
+function generate_item_rows(product_quantities_array) {
+  for (i=0; i<product_quantities_array.length; i++) {
+    quantity = product_quantities_array[i];
+    errors = isNonNegativeInteger(quantity, true);
+    if(quantity == 0) { //Continues adding rows even if quantity is 0
+      continue;
+    }
+    if(errors.length == 0) {
+      extended_price = quantity * products[i].price;
+      subtotal += extended_price;
+    } else {
+      extended_price = 0;
+      quantity = `<div style="color:red;">${quantity}<br>${errors.join("<br>")}</span>`;
+    }
+    
+document.write(`
+        <tr>
+          <td width="43%">${products[i].flower}</td>
+          <td align="center" width="11%">${quantity}</td>
+          <td width="13%">\$${products[i].price.toFixed(2)}</td>
+          <td width="54%">\$${extended_price.toFixed(2)}</td>
+        </tr>
+        `);
+      }
+    }
+        function isNonNegativeInteger(queryString, returnErrors = false) { //Function that checks for errors from Professor Kazman's Labs- Used in multiple labs
+            errors = []; // assume no errors at first
+            if (Number(queryString) != queryString) errors.push('Not a number!'); // Check if string is a number value
+            if (queryString < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+
+            if (returnErrors) {
+                return errors;
+            } else if (errors.length == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+// Generates table and calculates costs, all from Store1 WOD
+// Compute subtotal
+
+var subtotal= 0;
+// Generates table
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="invoice-style.css" rel="stylesheet">
+</head>
+<body>
+  <form id="invoiceform" action="invoiceform" method="post">
+  <table class = "center" border="2">
+      <tbody>
+        <tr>
+          <th style="text-align: center;" width="43%">Item</th>
+          <th style="text-align: center;" width="11%">Quantity</th>
+          <th style="text-align: center;" width="13%">Price</th>
+          <th style="text-align: center;" width="54%">Extended Price</th>
+        </tr>
+        <script>
+          generate_item_rows(quantities);
+        </script>
+        <script>
+        // Compute Tax
+
+var tax_rate = 0.04;
+var tax = tax_rate*subtotal;
+
+// Compute Shipping
+
+if (subtotal <50) {
+  shipping = 20;
+}
+else if (subtotal <=100-199.99) {
+  shipping = 15;
+}
+else (shipping = 10)
+
+// Compute total
+
+var total = subtotal + tax + shipping
+        </script>
+        <tr>
+          <td colspan="4" width="100%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+          <td width="54%">$<script>document.write(subtotal.toFixed(2));</script></td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;"></span><strong>Tax @ 4%</strong></td>
+          <td width="54%">$<script>document.write(tax.toFixed(2))</script></td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><strong>Shipping</strong></td>
+          <td width="54%"><strong>$<script>document.write(shipping.toFixed(2))</script></strong></td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><b>Total</b></td>
+          <td width="54%"><strong>$<script>document.write(total.toFixed(2))</script></strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <style>
+    h4 {font-size: 1rem;}
+  
+    </style>
+    <footer>
+    <h1><b>All proceeds go towards funding our nature conservation program!</b></h1>
+    <h4>
+    <div><b>OUR SHIPPING POLICY IS:</b></div>
+      <br><b>Subtotals less than $50 will have $20 shipping.</b></br>
+      <br><b>If subtotal is $100 - $199.99 it will be $15 shipping.</b></br>
+      <br><b>Subtotals over $200 will get $10 shipping!</b></br>
+    </h4>
+  </footer>
+  </form>
+</body>
+</html>
