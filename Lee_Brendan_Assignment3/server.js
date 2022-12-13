@@ -123,7 +123,7 @@ loadJSON('get_products_data', function (response) {
         <a href="index.html">Home</a>
         <a href="display_products.html?products_key=Flowers">Products</a>
         `)
-        if (typeof request.cookies["username"] != "undefined") { //Checks for cookie "username", if user logged in display logout, else display login
+        if (typeof request.cookies["useremail"] != "undefined") { //Checks for cookie "username", if user logged in display logout, else display login
           response.write(`<a href="/logout" id="logout">Logout</a>`);
         } else {
           response.write(`<a href="/login" id="login">Login</a>`);
