@@ -388,7 +388,7 @@ app.get("/login", function (request, response) {
     <h1>Login!</h1>
     <br>
     <label>Username</label>
-    <input type="email" name="email" size="30" placeholder="enter username"></br>
+    <input type="email" name="email" size="30" placeholder="enter email"></br>
     <br>
     <label>Password</label>
     <input type="password" name="password" size="30" placeholder="enter password"></br>
