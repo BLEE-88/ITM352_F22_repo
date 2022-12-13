@@ -43,7 +43,7 @@
     <a href="index.html">Home</a>
     <a href="display_products.html?products_key=Flowers">Products</a>
     <script>
-    if (getCookie('username') != false) { //Checks for cookie "username", if user logged in display logout, else display login
+    if (getCookie('useremail') != false) { //Checks for cookie "username", if user logged in display logout, else display login
       var user_cookie = getCookie('useremail');
       document.write(`<a href="/logout" id="logout">Logout</a>`);
     } else {
