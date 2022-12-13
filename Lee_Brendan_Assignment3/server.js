@@ -82,7 +82,7 @@ function calc_shipping(subtotal) {
   <link href="cart-style.css" rel="stylesheet">
   <link href="nav.css" rel="stylesheet">
 
-<script> //Functions to loadJSON and to change form action and method
+<script> //Functions to loadJSON and to assign form actions to each button
 
 loadJSON('get_products_data', function (response) {
   // Parsing JSON string into object
