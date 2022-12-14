@@ -230,7 +230,7 @@ for (products_key in shopping_cart) {
   for (i = 0; i < shopping_cart[products_key].length; i++) {
      if (typeof shopping_cart[products_key] == 'undefined') continue;
      quantity = shopping_cart[products_key][i];
-     let extended_price = quantity * products_data[products_key][i].price;
+     extended_price = quantity * products_data[products_key][i].price;
      subtotal += extended_price;
      if (quantity > 0) {
         invoice_str += `<tr><td align="right">${products_data[products_key][i].name}</td>
