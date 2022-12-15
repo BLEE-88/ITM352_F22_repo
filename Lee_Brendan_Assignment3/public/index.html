@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<script src="./functions.js"></script>
+<script>
+  // Code from assignment 3 examples https://dport96.github.io/ITM352/morea/180.Assignment3/reading-code-examples.html
+  var shopping_cart;
+  var total = 0;
+  loadJSON('get_products_data', function (response) {
+      // Parsing JSON string into object
+      products_data = JSON.parse(response);
+      
+    });
+  // Code from assignment 3 examples https://dport96.github.io/ITM352/morea/180.Assignment3/reading-code-examples.html
+  loadJSON('/get_cart', function (response) {
+      // Parsing JSON string into object
+      shopping_cart = JSON.parse(response);
+      for (pk in shopping_cart) {
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+//w3schools cookie function to get cookies https://www.w3schools.com/js/js_cookies.asp
+  function getCookie(cname) { 
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+</script>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="index.css" rel="stylesheet">
+<link href="nav.css" rel="stylesheet">
+</head>
+<body>
+  <div class="topnav">
+    <a href="index.html">Home</a>
+    <a href="display_products.html?products_key=Flowers">Products</a>
+    <script>
+    if (getCookie('useremail') != false) { //Checks for cookie "username", if user logged in display logout, else display login
+      var user_cookie = getCookie('useremail');
+      document.write(`<a href="/logout" id="logout">Logout</a>`);
+    } else {
+      document.write(`<a href="/login" id="login">Login</a>`);
+    }
+  </script>
+    <a href="/register">Register</a>
+    <a href="/cart">View Cart (<span id="cart_total">0</span>)</a>
+  </div>
+  <script> //Checks if user_name cookie exists, if user exists welcome!, else ask them to log in
+    if (getCookie('useremail') != false) { 
+          var user_cookie = getCookie('useremail');
+          document.write(`<h2>Welcome ${user_cookie}!</h2>`);
+        } else {
+          document.write(`<h2>Please log in or register if you want to checkout!</h2>`);
+        }
+  </script>
+<br>
+<h1>Welcome to the Manoa Garden!</h1>
+<br>
+<h2>Click any item to order that product!</h2>
+
+<!--W3Schools slideshow https://www.w3schools.com/howto/howto_js_slideshow.asp-->
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="nametext">Orchid</div>
+  <a href="./display_products.html?products_key=Flowers"><img src="./images/Orchid.jpg" style="width:100%"></a>
+</div>
+
+<div class="mySlides fade">
+  <div class="nametext">Aloha Shirts</div>
+  <a href="./display_products.html?products_key=Souvenirs"><img src="./images/Shirt.jpeg" style="width:100%"></a>
+</div>
+
+<div class="mySlides fade">
+  <div class="nametext">Dragonfruit</div>
+  <a href="./display_products.html?products_key=Fruits"><img src="./images/Dragonfruit.jpeg" style="width:100%"></a>
+</div>
+
+<div class="mySlides fade">
+  <div class="nametext">Lychee</div>
+  <a href="./display_products.html?products_key=Fruits"><img src="./images/Lychee.jpeg" style="width:100%"></a>
+  </div>
+  
+  <div class="mySlides fade">
+    <div class="nametext">Lei's</div>
+    <a href="./display_products.html?products_key=Souvenirs"><img src="./images/Lei.jpeg" style="width:100%"></a>
+    </div>
+  
+    <div class="mySlides fade">
+      <div class="nametext">Plumeria</div>
+      <a href="./display_products.html?products_key=Flowers"><img src="./images/Plumeria.jpg" style="width:100%"></a>
+    </div>
+
+</div>
+<br>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() { //Makes slideshow, but also makes dots that coincide with them. Dots coincide with whatever page is being displayed and increments by 1
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  setTimeout(showSlides, 3500); // Change image every 3.5 seconds
+}
+</script>
+<script>
+  cart_total.innerHTML = total;
+</script> 
+
+</body>
+</html> 

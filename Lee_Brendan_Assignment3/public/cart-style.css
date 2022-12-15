@@ -1,0 +1,56 @@
+html {
+    background: ivory;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  table {
+    width: 70%;
+    border-collapse: collapse;
+    border: 2px solid;
+  }
+
+  footer h1 { 
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+  h3 {
+    text-align: center;
+  }
+  h4 { 
+    text-align: center;
+  }
+
+  td {
+    text-align:center;
+  }
+  input[type=button] { 
+    background: white;
+    border-color: green;
+    border-radius: 25px;
+    height: 50px;
+    width: 200px;
+    font: bold15px arial,sans-serif;
+    text-shadow: none;
+    color: Black;
+    display: block;
+    max-width: 300px;
+    margin: auto;
+    }
+
+    input[type=submit] { 
+      background: white;
+      border-color: green;
+      border-radius: 25px;
+      height: 50px;
+      width: 200px;
+      font: bold15px arial,sans-serif;
+      text-shadow: none;
+      color: Black;
+      text-align: center;
+      }
