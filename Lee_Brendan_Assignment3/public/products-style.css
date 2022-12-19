@@ -1,0 +1,135 @@
+ /* Brendan Lee 12/14/2022 Style page for display_products.html */
+html {
+  background: url(images/mist.jpeg);
+  background-size: cover;
+  font-family: 'Raleway', sans-serif;
+  background-color: ivory;
+  font-size: 10px;
+}
+
+body {
+  width: 1200px; /*Wider body*/
+  margin: 0 auto;
+}
+
+h1 { 
+  color: black;
+  font-size: 10rem;
+  background-size: 48px 48px;
+  background-blend-mode: lighten;
+}
+
+h2 {
+  font-size: 23px;
+  color: green;
+  text-align: center;
+  width: 160px;
+  position: absolute;
+  right: 4%;
+  line-height: 2rem;
+  padding-top: 0.3rem;
+  font-weight: bold;
+  margin-right: 210px;
+}
+
+h3 { /*added h3 */
+  font-size: 2rem;
+  color: green;
+  text-align: right;
+  width: 160px;
+  position: absolute;
+  right: 4%;
+  z-index: 3000;
+  line-height: 2rem;
+  padding-top: 0.5rem;
+}
+h4 { /*added h4 */
+  font-size: 2rem;
+  color: green;
+  text-align: right;
+  width: 160px;
+  position: absolute;
+  right: 4%;
+  z-index: 3000;
+  line-height: 2rem;
+  padding-top: 0.5rem;
+}
+
+h5 {
+  font-size: large;
+}
+
+/* block styling */
+
+header, main, footer {
+  padding: 0px;
+}
+
+header {
+  height: 150px;
+}
+
+footer {
+  border: 5px solid rgb(55, 238, 125);
+  border-top: 20;
+  text-align: center; /*Centered button*/
+  background-color: rgb(55, 238, 125);
+}
+
+footer h1 {
+  font-style: italic;
+  font-size: 5rem;
+  color: black;
+}
+
+/*  Form styling */
+
+main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+/* Styling the products */
+
+section {
+  width: 45%; /* Changed width of black background */
+  margin: 5px;
+  background-color: rgb(237, 255, 211);
+  position: relative;
+  height: 215px;
+}
+
+.item img {
+    width: 250px;
+    height: 215px; 
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    
+}
+
+/* styled submit button */
+
+input[type=submit] { 
+  background: white;
+  border-color: green;
+  border-radius: 25px;
+  height: 50px;
+  width: 200px;
+  font: bold15px arial,sans-serif;
+  text-shadow: none;
+  color: Black;
+  vertical-align: middle;
+  }
+  
+  .links {
+    text-align: center;
+  }
+
+  .makeorder { text-align: center; }
+
+  .Choice {
+    text-align: center;
+    font-size: x-large;
+  }
