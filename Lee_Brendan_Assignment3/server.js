@@ -1,4 +1,6 @@
-//Brendan Lee 12/14/2022 Server that communicates with forms on the Html pages
+//Brendan Lee 12/14/2022 Server that communicates with forms on the Html pages. I used the vars to set some paramaters and requirements for different node installations.
+//I generated my cart, login, and registration on the server using app get and an app post immediately after to communicate with it.
+//Finally most of the code was validation testing to prevent some information from getting through.
 var express = require('express');
 var app = express();
 var path = require('path');
