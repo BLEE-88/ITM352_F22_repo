@@ -38,7 +38,7 @@ app.post("/get_cart", function (request, response) { //Responds to loadjson get_
   response.json(request.session.cart);
 });
 
-//Received help from Bobby Roth FA22
+//if "number" is equal to 0, type is flwer, if number is 1 then the type is fruits, else the type is souvenirs
 function get_typeof(Number) 
 {var type; 
     if (Number == 0) {
